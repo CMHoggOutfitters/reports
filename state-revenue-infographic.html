@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2025 Revenue by State — Hogg Outfitters</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/topojson@3/dist/topojson.min.js"></script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #0c0e14;
+    color: #e8eaf0;
+    font-family: 'Inter', sans-serif;
+    min-height: 100vh;
+    padding: 40px 48px;
+  }
+
+  .header {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  .header h1 {
+    font-size: 2.4rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    color: #ffffff;
+    line-height: 1.1;
+  }
+
+  .header h1 span {
+    color: #38bdf8;
+  }
+
+  .header .subtitle {
+    margin-top: 10px;
+    font-size: 0.95rem;
+    color: #8892a4;
+    font-weight: 400;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .kpi-row {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    margin-bottom: 40px;
+  }
+
+  .kpi {
+    background: #161925;
+    border: 1px solid #1e2535;
+    border-radius: 12px;
+    padding: 18px 36px;
+    text-align: center;
+  }
+
+  .kpi .val {
+    font-size: 1.9rem;
+    font-weight: 700;
+    color: #38bdf8;
+    line-height: 1;
+  }
+
+  .kpi .lbl {
+    font-size: 0.75rem;
+    color: #8892a4;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-top: 6px;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    gap: 28px;
+    align-items: start;
+  }
+
+  .card {
+    background: #161925;
+    border: 1px solid #1e2535;
+    border-radius: 16px;
+    padding: 28px;
+  }
+
+  .card-title {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #8892a4;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 20px;
+  }
+
+  #map-container svg {
+    width: 100%;
+    height: auto;
+  }
+
+  .state-path {
+    stroke: #0c0e14;
+    stroke-width: 0.8;
+    cursor: pointer;
+    transition: opacity 0.15s;
+  }
+  .state-path:hover { opacity: 0.8; }
+
+  /* Tooltip */
+  .tooltip {
+    position: fixed;
+    background: #1e2535;
+    border: 1px solid #2e3a50;
+    border-radius: 10px;
+    padding: 12px 16px;
+    font-size: 0.85rem;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.15s;
+    z-index: 999;
+    min-width: 180px;
+  }
+  .tooltip.visible { opacity: 1; }
+  .tooltip .tt-state { font-size: 1rem; font-weight: 700; color: #ffffff; margin-bottom: 6px; }
+  .tooltip .tt-row { display: flex; justify-content: space-between; gap: 16px; color: #a0aabb; font-size: 0.8rem; margin-top: 3px; }
+  .tooltip .tt-row span:last-child { color: #e8eaf0; font-weight: 500; }
+
+  /* Bar chart */
+  .bar-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+    gap: 8px;
+  }
+  .bar-label {
+    width: 28px;
+    font-size: 0.73rem;
+    font-weight: 600;
+    color: #a0aabb;
+    text-align: right;
+    flex-shrink: 0;
+  }
+  .bar-track {
+    flex: 1;
+    height: 26px;
+    background: #1e2535;
+    border-radius: 6px;
+    overflow: hidden;
+    position: relative;
+  }
+  .bar-fill {
+    height: 100%;
+    border-radius: 6px;
+    transition: width 0.6s ease;
+  }
+  .bar-amount {
+    width: 88px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: #e8eaf0;
+    flex-shrink: 0;
+    text-align: left;
+  }
+  .bar-meta {
+    width: 44px;
+    font-size: 0.73rem;
+    font-weight: 600;
+    color: #38bdf8;
+    flex-shrink: 0;
+    text-align: right;
+  }
+
+  /* Insights */
+  .insights-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-top: 28px;
+  }
+
+  .insight {
+    background: #161925;
+    border: 1px solid #1e2535;
+    border-radius: 12px;
+    padding: 18px 20px;
+  }
+
+  .insight .icon {
+    font-size: 1.4rem;
+    margin-bottom: 8px;
+  }
+
+  .insight .stat {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #38bdf8;
+  }
+
+  .insight .desc {
+    font-size: 0.78rem;
+    color: #8892a4;
+    margin-top: 4px;
+    line-height: 1.4;
+  }
+
+  /* Legend */
+  .legend {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 14px;
+    font-size: 0.72rem;
+    color: #8892a4;
+  }
+  .legend-bar {
+    flex: 1;
+    height: 8px;
+    border-radius: 4px;
+    background: linear-gradient(to right, #0e3a5c, #0ea5e9, #7dd3fc);
+  }
+
+  .footer {
+    text-align: center;
+    margin-top: 36px;
+    font-size: 0.72rem;
+    color: #4a5568;
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>2025 Revenue by <span>State</span></h1>
+  <div class="subtitle">Hogg Outfitters &nbsp;•&nbsp; 106,174 Orders &nbsp;•&nbsp; $15.1M Total Revenue</div>
+</div>
+
+<div class="kpi-row">
+  <div class="kpi"><div class="val">$15.1M</div><div class="lbl">Total Revenue</div></div>
+  <div class="kpi"><div class="val">106,174</div><div class="lbl">Total Orders</div></div>
+  <div class="kpi"><div class="val">$142</div><div class="lbl">Avg Order Value</div></div>
+  <div class="kpi"><div class="val">50</div><div class="lbl">States Represented</div></div>
+</div>
+
+<div class="grid">
+  <div class="card" id="map-container">
+    <div class="card-title">Revenue Heat Map</div>
+    <svg id="choropleth" viewBox="0 0 960 600"></svg>
+    <div class="legend">
+      <span>Low</span>
+      <div class="legend-bar"></div>
+      <span>High</span>
+    </div>
+  </div>
+
+  <div>
+    <div class="card">
+      <div class="card-title">Top 10 States by Revenue</div>
+      <div id="bar-chart"></div>
+    </div>
+  </div>
+</div>
+
+<div class="insights-grid">
+  <div class="insight">
+    <div class="icon">🏆</div>
+    <div class="stat">13.6%</div>
+    <div class="desc">Texas alone drives 13.6% of all revenue — home field advantage</div>
+  </div>
+  <div class="insight">
+    <div class="icon">📦</div>
+    <div class="stat">35%</div>
+    <div class="desc">Top 5 states (TX, FL, CA, OH, GA) account for 35% of total revenue</div>
+  </div>
+  <div class="insight">
+    <div class="icon">🌍</div>
+    <div class="stat">50</div>
+    <div class="desc">All 50 states represented — national reach with strong Southern &amp; Midwest base</div>
+  </div>
+  <div class="insight">
+    <div class="icon">📈</div>
+    <div class="stat">$142</div>
+    <div class="desc">Average order value across all states, reflecting premium tumbler positioning</div>
+  </div>
+</div>
+
+<div class="footer">Data: 2025 Shopify Orders &nbsp;•&nbsp; 738 cancelled orders excluded &nbsp;•&nbsp; 3,148 non-US orders excluded</div>
+
+<div class="tooltip" id="tooltip">
+  <div class="tt-state" id="tt-state"></div>
+  <div class="tt-row"><span>Revenue</span><span id="tt-rev"></span></div>
+  <div class="tt-row"><span>% of Total</span><span id="tt-pct"></span></div>
+  <div class="tt-row"><span>Orders</span><span id="tt-orders"></span></div>
+  <div class="tt-row"><span>Avg Order</span><span id="tt-aov"></span></div>
+</div>
+
+<script>
+const TOTAL = 15115873;
+
+const stateData = {
+  "TX": { name: "Texas", rev: 2055880, orders: 13306 },
+  "FL": { name: "Florida", rev: 1346103, orders: 8766 },
+  "CA": { name: "California", rev: 877407, orders: 6236 },
+  "OH": { name: "Ohio", rev: 583185, orders: 4349 },
+  "GA": { name: "Georgia", rev: 549142, orders: 3823 },
+  "PA": { name: "Pennsylvania", rev: 538496, orders: 3896 },
+  "IL": { name: "Illinois", rev: 512901, orders: 3758 },
+  "MI": { name: "Michigan", rev: 481480, orders: 3526 },
+  "NY": { name: "New York", rev: 477071, orders: 3519 },
+  "NC": { name: "North Carolina", rev: 435526, orders: 3461 },
+  "MO": { name: "Missouri", rev: 406798, orders: 2950 },
+  "LA": { name: "Louisiana", rev: 405453, orders: 2873 },
+  "TN": { name: "Tennessee", rev: 369492, orders: 2632 },
+  "IN": { name: "Indiana", rev: 366221, orders: 2806 },
+  "AZ": { name: "Arizona", rev: 342649, orders: 2415 },
+  "AL": { name: "Alabama", rev: 302195, orders: 2174 },
+  "WI": { name: "Wisconsin", rev: 293922, orders: 1910 },
+  "SC": { name: "South Carolina", rev: 277651, orders: 2032 },
+  "VA": { name: "Virginia", rev: 275246, orders: 2119 },
+  "MN": { name: "Minnesota", rev: 265954, orders: 1475 },
+  "OK": { name: "Oklahoma", rev: 264650, orders: 1913 },
+  "CO": { name: "Colorado", rev: 238257, orders: 1728 },
+  "WA": { name: "Washington", rev: 235230, orders: 1652 },
+  "KY": { name: "Kentucky", rev: 233529, orders: 1520 },
+  "NJ": { name: "New Jersey", rev: 217316, orders: 1691 },
+  "MD": { name: "Maryland", rev: 213522, orders: 1645 },
+  "KS": { name: "Kansas", rev: 195658, orders: 1392 },
+  "IA": { name: "Iowa", rev: 191719, orders: 1494 },
+  "AR": { name: "Arkansas", rev: 190376, orders: 1489 },
+  "MS": { name: "Mississippi", rev: 187976, orders: 1382 },
+  "NM": { name: "New Mexico", rev: 173563, orders: 1238 },
+  "OR": { name: "Oregon", rev: 151683, orders: 1014 },
+  "WV": { name: "West Virginia", rev: 147458, orders: 1065 },
+  "UT": { name: "Utah", rev: 145262, orders: 902 },
+  "NV": { name: "Nevada", rev: 134366, orders: 986 },
+  "ID": { name: "Idaho", rev: 128330, orders: 873 },
+  "MA": { name: "Massachusetts", rev: 121776, orders: 908 },
+  "NE": { name: "Nebraska", rev: 118996, orders: 790 },
+  "WY": { name: "Wyoming", rev: 96405, orders: 543 },
+  "MT": { name: "Montana", rev: 94579, orders: 615 },
+  "ND": { name: "North Dakota", rev: 69957, orders: 466 },
+  "ME": { name: "Maine", rev: 66975, orders: 436 },
+  "CT": { name: "Connecticut", rev: 59851, orders: 576 },
+  "SD": { name: "South Dakota", rev: 56302, orders: 378 },
+  "DE": { name: "Delaware", rev: 50724, orders: 365 },
+  "NH": { name: "New Hampshire", rev: 42005, orders: 410 },
+  "RI": { name: "Rhode Island", rev: 31741, orders: 225 },
+  "VT": { name: "Vermont", rev: 15799, orders: 142 },
+  "HI": { name: "Hawaii", rev: 14209, orders: 46 },
+  "AK": { name: "Alaska", rev: 9322, orders: 42 }
+};
+
+const fipsToAbbr = {
+  "01":"AL","02":"AK","04":"AZ","05":"AR","06":"CA","08":"CO","09":"CT","10":"DE",
+  "12":"FL","13":"GA","15":"HI","16":"ID","17":"IL","18":"IN","19":"IA","20":"KS",
+  "21":"KY","22":"LA","23":"ME","24":"MD","25":"MA","26":"MI","27":"MN","28":"MS",
+  "29":"MO","30":"MT","31":"NE","32":"NV","33":"NH","34":"NJ","35":"NM","36":"NY",
+  "37":"NC","38":"ND","39":"OH","40":"OK","41":"OR","42":"PA","44":"RI","45":"SC",
+  "46":"SD","47":"TN","48":"TX","49":"UT","50":"VT","51":"VA","53":"WA","54":"WV",
+  "55":"WI","56":"WY"
+};
+
+const fmt = v => "$" + v.toLocaleString();
+const fmtPct = v => (v * 100).toFixed(1) + "%";
+
+// Color scale
+const maxRev = 2055880;
+const colorScale = d3.scaleSequential()
+  .domain([0, maxRev])
+  .interpolator(t => d3.interpolateRgb("#0e2a3d", "#38bdf8")(Math.pow(t, 0.45)));
+
+// Draw map
+d3.json("https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json").then(us => {
+  const svg = d3.select("#choropleth");
+  const projection = d3.geoAlbersUsa().scale(1280).translate([480, 300]);
+  const path = d3.geoPath().projection(projection);
+  const states = topojson.feature(us, us.objects.states);
+  const tooltip = document.getElementById("tooltip");
+
+  svg.selectAll(".state-path")
+    .data(states.features)
+    .enter().append("path")
+    .attr("class", "state-path")
+    .attr("d", path)
+    .attr("fill", d => {
+      const fips = String(d.id).padStart(2, "0");
+      const abbr = fipsToAbbr[fips];
+      const info = stateData[abbr];
+      return info ? colorScale(info.rev) : "#1a2030";
+    })
+    .on("mousemove", (event, d) => {
+      const fips = String(d.id).padStart(2, "0");
+      const abbr = fipsToAbbr[fips];
+      const info = stateData[abbr];
+      if (!info) return;
+      tooltip.classList.add("visible");
+      document.getElementById("tt-state").textContent = info.name + " (" + abbr + ")";
+      document.getElementById("tt-rev").textContent = fmt(info.rev);
+      document.getElementById("tt-pct").textContent = fmtPct(info.rev / TOTAL);
+      document.getElementById("tt-orders").textContent = info.orders.toLocaleString();
+      document.getElementById("tt-aov").textContent = fmt(Math.round(info.rev / info.orders));
+      tooltip.style.left = (event.clientX + 14) + "px";
+      tooltip.style.top = (event.clientY - 10) + "px";
+    })
+    .on("mouseleave", () => tooltip.classList.remove("visible"));
+
+  // State labels for larger states
+  const labelStates = ["TX","FL","CA","OH","GA","PA","IL","MI","NY","NC","MO","LA","TN","IN","AZ","AL","WI","SC","VA","MN","OK","CO","WA","KY","NJ","MD","KS","IA","AR","MS","OR","WV","UT","NV","ID","MA","NE","MT","ND","SD","WY","ME","CT","DE","NH","NM"];
+  svg.selectAll(".state-label")
+    .data(states.features.filter(d => {
+      const fips = String(d.id).padStart(2,"0");
+      return labelStates.includes(fipsToAbbr[fips]);
+    }))
+    .enter().append("text")
+    .attr("class","state-label")
+    .attr("transform", d => {
+      const c = path.centroid(d);
+      return c ? `translate(${c})` : "";
+    })
+    .attr("text-anchor","middle")
+    .attr("dominant-baseline","middle")
+    .attr("font-size","7px")
+    .attr("font-family","Inter,sans-serif")
+    .attr("font-weight","600")
+    .attr("fill","rgba(255,255,255,0.7)")
+    .attr("pointer-events","none")
+    .text(d => {
+      const fips = String(d.id).padStart(2,"0");
+      return fipsToAbbr[fips] || "";
+    });
+});
+
+// Bar chart — top 10
+const top10 = Object.entries(stateData)
+  .sort((a,b) => b[1].rev - a[1].rev)
+  .slice(0,10);
+
+const barContainer = document.getElementById("bar-chart");
+const barColors = [
+  "#38bdf8","#34d399","#a78bfa","#fb923c","#f472b6",
+  "#60a5fa","#4ade80","#c084fc","#fbbf24","#f87171"
+];
+
+top10.forEach(([abbr, info], i) => {
+  const pct = info.rev / TOTAL;
+  const barPct = (info.rev / top10[0][1].rev * 100).toFixed(1);
+
+  const row = document.createElement("div");
+  row.className = "bar-row";
+
+  row.innerHTML = `
+    <div class="bar-label">${abbr}</div>
+    <div class="bar-track">
+      <div class="bar-fill" style="width:${barPct}%; background:${barColors[i]}"></div>
+    </div>
+    <div class="bar-amount">${fmt(info.rev)}</div>
+    <div class="bar-meta">${fmtPct(pct)}</div>
+  `;
+  barContainer.appendChild(row);
+});
+</script>
+</body>
+</html>
