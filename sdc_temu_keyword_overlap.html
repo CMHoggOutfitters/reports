@@ -1,0 +1,286 @@
+
+<h2 class="sr-only">Keyword-level Temu overlap analysis for The Stainless Depot Company: 170 SDC keywords vs 2500 Temu keywords showing near-zero overlap and category breakdown.</h2>
+<style>
+  body-wrap { font-family: var(--font-sans); }
+  .section-label { font-size: 11px; font-weight: 500; color: var(--color-text-secondary); text-transform: uppercase; letter-spacing: 0.07em; margin: 1.5rem 0 0.6rem; }
+  .metric-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; margin-bottom: 0.5rem; }
+  .metric { background: var(--color-background-secondary); border-radius: 8px; padding: 0.85rem 1rem; }
+  .metric .mlabel { font-size: 12px; color: var(--color-text-secondary); margin-bottom: 4px; }
+  .metric .mval { font-size: 22px; font-weight: 500; }
+  .metric .msub { font-size: 11px; color: var(--color-text-tertiary); margin-top: 2px; }
+  .green .mval { color: #3B6D11; }
+  .amber .mval { color: #BA7517; }
+  .blue .mval { color: #185FA5; }
+  .card { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: 12px; padding: 1rem 1.25rem; margin-bottom: 1rem; }
+  .chart-wrap { position: relative; width: 100%; }
+  .legend { display: flex; flex-wrap: wrap; gap: 14px; font-size: 12px; color: var(--color-text-secondary); margin-bottom: 10px; }
+  .leg-sq { width: 10px; height: 10px; border-radius: 2px; display: inline-block; }
+  .table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .table th { text-align: left; font-weight: 500; font-size: 11px; color: var(--color-text-secondary); border-bottom: 0.5px solid var(--color-border-tertiary); padding: 6px 8px; white-space: nowrap; }
+  .table td { padding: 6px 8px; border-bottom: 0.5px solid var(--color-border-tertiary); color: var(--color-text-primary); vertical-align: top; }
+  .table tr:last-child td { border-bottom: none; }
+  .badge { display: inline-block; font-size: 11px; padding: 2px 7px; border-radius: 4px; font-weight: 500; white-space: nowrap; }
+  .b-green { background: #EAF3DE; color: #3B6D11; }
+  .b-amber { background: #FAEEDA; color: #854F0B; }
+  .b-red { background: #FCEBEB; color: #A32D2D; }
+  .b-blue { background: #E6F1FB; color: #185FA5; }
+  .b-gray { background: var(--color-background-secondary); color: var(--color-text-secondary); }
+  .insight { border-left: 3px solid #1D9E75; padding: 0.7rem 1rem; margin-bottom: 0.75rem; font-size: 13px; color: var(--color-text-primary); background: #E1F5EE; border-radius: 0; }
+  .insight strong { color: #085041; }
+  .kw-table-wrap { max-height: 320px; overflow-y: auto; border: 0.5px solid var(--color-border-tertiary); border-radius: 8px; }
+  .filter-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 0.75rem; }
+  .filter-row button { font-size: 12px; padding: 4px 12px; }
+  .filter-row button.active { background: var(--color-background-secondary); border-color: var(--color-border-primary); font-weight: 500; }
+</style>
+
+<div style="padding: 0.5rem 0; font-family: var(--font-sans);">
+
+<div class="section-label">Overlap summary</div>
+<div class="metric-grid">
+  <div class="metric blue">
+    <div class="mlabel">SDC paid keywords</div>
+    <div class="mval">170</div>
+    <div class="msub">From Ahrefs export</div>
+  </div>
+  <div class="metric blue">
+    <div class="mlabel">Temu paid keywords</div>
+    <div class="mval">2,500</div>
+    <div class="msub">US market, Apr 2026</div>
+  </div>
+  <div class="metric green">
+    <div class="mlabel">Exact overlap</div>
+    <div class="mval">1</div>
+    <div class="msub">Out of 170 SDC keywords</div>
+  </div>
+  <div class="metric green">
+    <div class="mlabel">SDC keywords Temu-free</div>
+    <div class="mval">99.4%</div>
+    <div class="msub">169 of 170 keywords</div>
+  </div>
+</div>
+
+<div class="section-label">The strategic picture</div>
+<div class="insight"><strong>Your entire keyword portfolio is essentially Temu-free.</strong> Temu operates in generic consumer categories — home goods, fashion, garden, cheap alternatives. Your keywords are B2B drinkware, sublimation blanks, stainless wholesale, and laser engraving — a completely different buyer intent.</div>
+<div class="insight"><strong>The 1 overlapping keyword:</strong> "bulk acrylic tumblers" (Vol: 20, CPC: $1.11). Low volume, marginal risk.</div>
+<div class="insight"><strong>What Temu does bid on near your space:</strong> generic "bulk" terms (156 kws), "wholesale" terms (33 kws), and a handful of generic drinkware — but none are your specific product/process keywords like sublimation blanks, stainless tumblers, laser engraving.</div>
+
+<div class="section-label">Your keyword portfolio by category</div>
+<div class="card">
+  <div class="legend">
+    <span><span class="leg-sq" style="background:#378ADD;"></span> SDC paid traffic</span>
+    <span><span class="leg-sq" style="background:#E24B4A; border: 1px dashed #E24B4A;"></span> Temu exact matches (of SDC keywords)</span>
+  </div>
+  <div class="chart-wrap" style="height:200px;">
+    <canvas id="catChart" role="img" aria-label="Bar chart of SDC keyword categories. Tumbler has 96 keywords and 161 paid traffic. Stainless steel has 10 keywords and 96 traffic. Sublimation has 53 keywords and 47 traffic. Temu overlaps on 1 keyword only.">Tumbler: 96 keywords, 161 traffic. Stainless: 10 keywords, 96 traffic. Sublimation: 53 keywords, 47 traffic. Temu overlap: 1 keyword total.</canvas>
+  </div>
+</div>
+
+<div class="section-label">Temu overlap by theme — your keyword categories vs Temu's presence</div>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Your keyword theme</th>
+      <th>SDC count</th>
+      <th>Temu exact matches</th>
+      <th>Temu theme presence</th>
+      <th>Competitive risk</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Tumbler (all sizes/types)</td>
+      <td>96</td>
+      <td>1 <span style="font-size:11px;color:var(--color-text-tertiary);">(bulk acrylic)</span></td>
+      <td>3 Temu kws (very generic)</td>
+      <td><span class="badge b-green">Negligible</span></td>
+    </tr>
+    <tr>
+      <td>Sublimation blanks/printing</td>
+      <td>53</td>
+      <td>0</td>
+      <td>1 Temu kw (acrylic blanks)</td>
+      <td><span class="badge b-green">None</span></td>
+    </tr>
+    <tr>
+      <td>Stainless steel (depot/brand)</td>
+      <td>10</td>
+      <td>0</td>
+      <td>1 Temu kw (marine hinges — unrelated)</td>
+      <td><span class="badge b-green">None</span></td>
+    </tr>
+    <tr>
+      <td>Bulk / wholesale drinkware</td>
+      <td>4</td>
+      <td>0</td>
+      <td>Temu bids "bulk" broadly, not drinkware</td>
+      <td><span class="badge b-amber">Watch</span></td>
+    </tr>
+    <tr>
+      <td>Custom / laser engraving</td>
+      <td>~8</td>
+      <td>0</td>
+      <td>0 Temu kws on custom/personalization</td>
+      <td><span class="badge b-green">None</span></td>
+    </tr>
+    <tr>
+      <td>Brand (Hogg, SDC)</td>
+      <td>2</td>
+      <td>0</td>
+      <td>0 Temu kws on your brand</td>
+      <td><span class="badge b-green">None</span></td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="section-label">Your top SDC keywords — sortable</div>
+<div class="filter-row">
+  <button onclick="filterKw('all')" class="active" id="btn-all">All (170)</button>
+  <button onclick="filterKw('tumbler')" id="btn-tumbler">Tumbler (96)</button>
+  <button onclick="filterKw('sublimation')" id="btn-sublimation">Sublimation (53)</button>
+  <button onclick="filterKw('stainless')" id="btn-stainless">Stainless (10)</button>
+  <button onclick="filterKw('overlap')" id="btn-overlap">Temu overlap (1)</button>
+</div>
+<div class="kw-table-wrap">
+  <table class="table" id="kwTable">
+    <thead>
+      <tr>
+        <th>Keyword</th>
+        <th>Category</th>
+        <th>Volume</th>
+        <th>CPC</th>
+        <th>SDC Traffic</th>
+        <th>Temu overlap</th>
+      </tr>
+    </thead>
+    <tbody id="kwBody"></tbody>
+  </table>
+</div>
+
+<div class="section-label">What Temu actually bids on (top keywords)</div>
+<div class="card">
+  <div style="font-size:12px;color:var(--color-text-secondary);margin-bottom:0.75rem;">Temu's top 15 keywords by paid traffic — none overlap with your portfolio</div>
+  <div class="chart-wrap" style="height:340px;">
+    <canvas id="temuTopChart" role="img" aria-label="Horizontal bar chart of Temu top 15 keywords. Ali express leads at 56814 traffic. Diamond painting 4716. None are drinkware or stainless.">Ali express: 56814. Diamond painting: 4716. Outdoor patio chairs: 4031. Temu.com my orders: 3961. Full size bed frame: 3614. None are drinkware.</canvas>
+  </div>
+</div>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+const kwData = [
+  {kw:'stainless steel depot',cat:'stainless steel',vol:5800,cpc:0.25,traffic:35,overlap:false},
+  {kw:'stainless depot',cat:'stainless steel',vol:1100,cpc:0.63,traffic:12,overlap:false},
+  {kw:'12 oz tumbler',cat:'tumbler',vol:450,cpc:0.29,traffic:7,overlap:false},
+  {kw:'stainless steel cups with lids',cat:'stainless steel',vol:400,cpc:0.28,traffic:48,overlap:false},
+  {kw:'sublimation tumbler blanks',cat:'sublimation',vol:200,cpc:0.78,traffic:null,overlap:false},
+  {kw:'hoggoutfitters tumblers',cat:'tumbler',vol:200,cpc:null,traffic:31,overlap:false},
+  {kw:'wine tumblers in bulk',cat:'tumbler',vol:150,cpc:0.38,traffic:null,overlap:false},
+  {kw:'wholesale blank tumblers',cat:'bulk/wholesale',vol:150,cpc:0.60,traffic:23,overlap:false},
+  {kw:'screen print vs sublimation',cat:'sublimation',vol:150,cpc:0.12,traffic:16,overlap:false},
+  {kw:'blanks for sublimation',cat:'sublimation',vol:150,cpc:0.48,traffic:3,overlap:false},
+  {kw:'cheap tumblers in bulk',cat:'tumbler',vol:150,cpc:0.48,traffic:3,overlap:false},
+  {kw:'stainless steel sublimation tumbler',cat:'stainless steel',vol:100,cpc:0.23,traffic:null,overlap:false},
+  {kw:'tumbler cups bulk',cat:'tumbler',vol:100,cpc:0.45,traffic:13,overlap:false},
+  {kw:'tumbler for sublimation',cat:'tumbler',vol:100,cpc:0.37,traffic:11,overlap:false},
+  {kw:'tumblers for laser engraving',cat:'tumbler',vol:100,cpc:0.50,traffic:4,overlap:false},
+  {kw:'tumblers for sublimation',cat:'sublimation',vol:100,cpc:0.37,traffic:10,overlap:false},
+  {kw:'bulk tumblers with lids and straws',cat:'bulk/wholesale',vol:100,cpc:1.45,traffic:3,overlap:false},
+  {kw:'sublimation cups bulk',cat:'sublimation',vol:100,cpc:0.87,traffic:null,overlap:false},
+  {kw:'stainless steel warehouse',cat:'stainless steel',vol:90,cpc:1.61,traffic:null,overlap:false},
+  {kw:'white tumblers in bulk',cat:'tumbler',vol:90,cpc:0.98,traffic:4,overlap:false},
+  {kw:'tumbler wholesale distributor',cat:'bulk/wholesale',vol:80,cpc:0.90,traffic:2,overlap:false},
+  {kw:'wine tumbler with lid bulk',cat:'tumbler',vol:80,cpc:0.36,traffic:1,overlap:false},
+  {kw:'20 oz tumbler bulk',cat:'tumbler',vol:80,cpc:0.52,traffic:1,overlap:false},
+  {kw:'laser engraved tumblers wholesale',cat:'tumbler',vol:40,cpc:2.62,traffic:null,overlap:false},
+  {kw:'bulk acrylic tumblers',cat:'tumbler',vol:20,cpc:1.11,traffic:null,overlap:true},
+  {kw:'sublimation drinkware',cat:'sublimation',vol:60,cpc:0.65,traffic:null,overlap:false},
+  {kw:'water bottle blanks',cat:'sublimation',vol:40,cpc:0.69,traffic:null,overlap:false},
+  {kw:'bulk tumblers for laser engraving',cat:'tumbler',vol:40,cpc:0.70,traffic:null,overlap:false},
+  {kw:'stainless steel party cups',cat:'stainless steel',vol:30,cpc:1.84,traffic:null,overlap:false},
+  {kw:'blank water bottles bulk',cat:'bulk/wholesale',vol:30,cpc:0.75,traffic:null,overlap:false},
+];
+
+let currentFilter = 'all';
+
+function filterKw(f) {
+  currentFilter = f;
+  ['all','tumbler','sublimation','stainless','overlap'].forEach(id => {
+    document.getElementById('btn-'+id).classList.toggle('active', id === f);
+  });
+  renderTable();
+}
+
+function renderTable() {
+  let rows = kwData;
+  if (currentFilter === 'tumbler') rows = kwData.filter(r => r.cat === 'tumbler');
+  else if (currentFilter === 'sublimation') rows = kwData.filter(r => r.cat === 'sublimation');
+  else if (currentFilter === 'stainless') rows = kwData.filter(r => r.cat === 'stainless steel');
+  else if (currentFilter === 'overlap') rows = kwData.filter(r => r.overlap);
+
+  rows = [...rows].sort((a,b) => (b.vol||0)-(a.vol||0));
+
+  document.getElementById('kwBody').innerHTML = rows.map(r => `
+    <tr>
+      <td>${r.kw}</td>
+      <td><span class="badge b-gray">${r.cat}</span></td>
+      <td>${r.vol != null ? r.vol.toLocaleString() : '—'}</td>
+      <td>${r.cpc != null ? '$'+r.cpc.toFixed(2) : '—'}</td>
+      <td>${r.traffic != null ? r.traffic : '—'}</td>
+      <td>${r.overlap ? '<span class="badge b-amber">YES</span>' : '<span class="badge b-green">No</span>'}</td>
+    </tr>
+  `).join('');
+}
+renderTable();
+
+new Chart(document.getElementById('catChart'), {
+  type: 'bar',
+  data: {
+    labels: ['Tumbler','Sublimation','Stainless steel','Bulk/wholesale','Other/brand'],
+    datasets: [
+      {
+        label: 'SDC paid traffic',
+        data: [161, 47, 96, 2, 10],
+        backgroundColor: '#378ADD',
+        borderRadius: 3
+      },
+      {
+        label: 'Temu exact matches',
+        data: [1, 0, 0, 0, 0],
+        backgroundColor: '#E24B4A',
+        borderRadius: 3
+      }
+    ]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { ticks: { font: { size: 11 }, color: '#888780' }, grid: { color: 'rgba(136,135,128,0.1)' } },
+      y: { ticks: { font: { size: 11 }, color: '#888780' }, grid: { color: 'rgba(136,135,128,0.15)' } }
+    }
+  }
+});
+
+new Chart(document.getElementById('temuTopChart'), {
+  type: 'bar',
+  data: {
+    labels: ['ali express','diamond painting','outdoor patio chairs','temu.com my orders','full size bed frame','seed starting trays','twin bed frame','mens tank tops','chicken coops','discount patio furniture','exercise equipment','cheap graphic tees','party favors for adults','tapestry','tree watering bags'],
+    datasets: [{
+      label: 'Paid traffic',
+      data: [56814,4716,4031,3961,3614,3498,3462,3246,2406,2378,2322,2058,1774,1771,1670],
+      backgroundColor: '#E24B4A',
+      borderRadius: 3
+    }]
+  },
+  options: {
+    indexAxis: 'y',
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { ticks: { font: { size: 11 }, color: '#888780', callback: v => v.toLocaleString() }, grid: { color: 'rgba(136,135,128,0.15)' } },
+      y: { ticks: { font: { size: 10 }, color: '#888780' }, grid: { display: false } }
+    }
+  }
+});
+</script>
