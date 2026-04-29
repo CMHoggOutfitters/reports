@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Temu Overlap Report — The Stainless Depot Company</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;900&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<style>
+  :root {
+    --navy: #182E49;
+    --mint: #D8F5E2;
+    --cream: #FBF3F0;
+    --tan: #E6DFE2;
+    --orange: #E5966E;
+    --offwhite: #FEFCF8;
+    --offblack: #101010;
+    --navy-light: #2a4a72;
+    --navy-dark: #0f1e30;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Noto Sans', sans-serif;
+    background: var(--offwhite);
+    color: var(--offblack);
+    font-weight: 300;
+  }
+
+  /* HEADER */
+  header {
+    background: var(--navy);
+    color: white;
+    padding: 0;
+  }
+  .header-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 2.5rem 2rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 2rem;
+  }
+  .header-brand {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .header-logo {
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+  }
+  .header-title {
+    font-size: 2.4rem;
+    font-weight: 900;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+  }
+  .header-title span { color: var(--orange); }
+  .header-meta {
+    text-align: right;
+    font-size: 12px;
+    color: rgba(255,255,255,0.45);
+    line-height: 1.6;
+  }
+  .header-verdict {
+    background: var(--mint);
+    color: var(--navy);
+    padding: 1rem 2rem;
+  }
+  .header-verdict-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+  .verdict-icon {
+    width: 44px;
+    height: 44px;
+    background: var(--navy);
+    color: var(--mint);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+  .verdict-text {
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--navy);
+    line-height: 1.5;
+  }
+  .verdict-text strong { font-weight: 900; }
+
+  /* LAYOUT */
+  main { max-width: 1100px; margin: 0 auto; padding: 2.5rem 2rem; }
+
+  /* SECTION */
+  .section { margin-bottom: 3rem; }
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+    border-bottom: 2px solid var(--navy);
+    padding-bottom: 0.5rem;
+  }
+  .section-title {
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--navy);
+  }
+  .section-sub {
+    font-size: 11px;
+    color: #888;
+    letter-spacing: 0.05em;
+  }
+
+  /* STAT CARDS */
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-bottom: 1rem;
+  }
+  .stat-card {
+    background: white;
+    border: 1px solid var(--tan);
+    padding: 1.25rem 1rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--navy);
+  }
+  .stat-card.accent::before { background: var(--orange); }
+  .stat-card.mint::before { background: #1D9E75; }
+  .stat-label {
+    font-size: 10px;
+    font-weight: 900;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #888;
+    margin-bottom: 0.5rem;
+  }
+  .stat-value {
+    font-size: 2.2rem;
+    font-weight: 900;
+    color: var(--navy);
+    line-height: 1;
+    letter-spacing: -0.03em;
+  }
+  .stat-card.accent .stat-value { color: var(--orange); }
+  .stat-card.mint .stat-value { color: #0F6E56; }
+  .stat-note {
+    font-size: 11px;
+    color: #999;
+    margin-top: 0.4rem;
+    font-weight: 300;
+  }
+
+  /* CHARTS */
+  .chart-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .chart-card {
+    background: white;
+    border: 1px solid var(--tan);
+    padding: 1.25rem;
+  }
+  .chart-title {
+    font-size: 10px;
+    font-weight: 900;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--navy);
+    margin-bottom: 1rem;
+  }
+  .chart-wrap { position: relative; }
+
+  /* RISK TABLE */
+  .risk-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+  .risk-card {
+    border: 1px solid var(--tan);
+    background: white;
+    padding: 1.25rem;
+  }
+  .risk-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+  }
+  .risk-label {
+    font-size: 10px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--navy);
+  }
+  .risk-badge {
+    font-size: 10px;
+    font-weight: 900;
+    padding: 3px 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .rb-none { background: var(--mint); color: #085041; }
+  .rb-watch { background: #FFF3D4; color: #8B5E0A; }
+  .rb-low { background: #E8F4FD; color: #1a5a8a; }
+  .risk-count {
+    font-size: 2rem;
+    font-weight: 900;
+    color: var(--navy);
+    letter-spacing: -0.03em;
+  }
+  .risk-desc {
+    font-size: 12px;
+    color: #666;
+    margin-top: 0.4rem;
+    line-height: 1.5;
+    font-weight: 300;
+  }
+  .risk-temu {
+    font-size: 11px;
+    color: #aaa;
+    margin-top: 0.75rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--tan);
+    font-weight: 300;
+  }
+
+  /* KEYWORD TABLE */
+  .kw-controls {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .kw-controls input {
+    flex: 1;
+    min-width: 180px;
+    max-width: 280px;
+    padding: 8px 14px;
+    border: 1px solid var(--tan);
+    background: white;
+    font-family: 'Noto Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 300;
+    outline: none;
+    color: var(--offblack);
+  }
+  .kw-controls input:focus { border-color: var(--navy); }
+  .filter-btn {
+    padding: 7px 14px;
+    border: 1px solid var(--tan);
+    background: white;
+    font-family: 'Noto Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    color: #888;
+    transition: all 0.15s;
+  }
+  .filter-btn:hover { border-color: var(--navy); color: var(--navy); }
+  .filter-btn.active { background: var(--navy); color: white; border-color: var(--navy); }
+  .filter-btn.overlap-btn.active { background: var(--orange); border-color: var(--orange); }
+
+  .kw-table-wrap {
+    border: 1px solid var(--tan);
+    overflow: hidden;
+  }
+  .kw-scroll { max-height: 420px; overflow-y: auto; }
+  table { width: 100%; border-collapse: collapse; }
+  thead th {
+    background: var(--navy);
+    color: white;
+    font-size: 10px;
+    font-weight: 900;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 10px 14px;
+    text-align: left;
+    position: sticky;
+    top: 0;
+    cursor: pointer;
+    user-select: none;
+    white-space: nowrap;
+  }
+  thead th:hover { background: var(--navy-light); }
+  thead th.sort-asc::after { content: ' ↑'; opacity: 0.7; }
+  thead th.sort-desc::after { content: ' ↓'; opacity: 0.7; }
+  tbody tr {
+    border-bottom: 1px solid var(--tan);
+    transition: background 0.1s;
+  }
+  tbody tr:hover { background: var(--cream); }
+  tbody tr.overlap-row { background: #FFF8F5; }
+  tbody tr.overlap-row:hover { background: #FFEEE5; }
+  td {
+    padding: 9px 14px;
+    font-size: 13px;
+    font-weight: 300;
+    color: var(--offblack);
+  }
+  .cat-pill {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 900;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 2px 8px;
+    background: var(--tan);
+    color: var(--navy);
+  }
+  .overlap-tag {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 900;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 2px 8px;
+    background: var(--orange);
+    color: white;
+  }
+  .clear-tag {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 900;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 2px 8px;
+    background: var(--mint);
+    color: #085041;
+  }
+  .kw-count {
+    font-size: 12px;
+    color: #888;
+    margin-top: 0.5rem;
+    font-weight: 300;
+  }
+
+  /* TEMU SECTION */
+  .temu-header {
+    background: var(--cream);
+    border: 1px solid var(--tan);
+    padding: 1rem 1.25rem;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  .temu-header-icon {
+    width: 36px;
+    height: 36px;
+    background: #E24B4A;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 900;
+    font-size: 12px;
+    letter-spacing: 0.05em;
+    flex-shrink: 0;
+  }
+  .temu-header-text { font-size: 13px; color: #666; font-weight: 300; line-height: 1.5; }
+  .temu-header-text strong { font-weight: 900; color: var(--offblack); }
+
+  /* FOOTER */
+  footer {
+    background: var(--navy);
+    color: rgba(255,255,255,0.4);
+    text-align: center;
+    padding: 1.5rem;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    margin-top: 3rem;
+  }
+
+  /* TREND STRIP */
+  .trend-strip {
+    background: var(--navy);
+    color: white;
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+  }
+  .trend-item { text-align: center; }
+  .trend-val { font-size: 1.4rem; font-weight: 900; letter-spacing: -0.02em; }
+  .trend-val.down { color: #E5966E; }
+  .trend-val.up { color: var(--mint); }
+  .trend-lbl { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.45); margin-top: 2px; }
+  .trend-divider { width: 1px; height: 40px; background: rgba(255,255,255,0.15); }
+
+  @media (max-width: 700px) {
+    .stat-grid { grid-template-columns: repeat(2,1fr); }
+    .chart-grid { grid-template-columns: 1fr; }
+    .risk-grid { grid-template-columns: 1fr; }
+    .header-title { font-size: 1.6rem; }
+    .header-inner { flex-direction: column; align-items: flex-start; }
+    .header-meta { text-align: left; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="header-brand">
+      <div class="header-logo">The Stainless Depot Company · Paid Search Analysis</div>
+      <h1 class="header-title">Temu <span>Overlap</span><br>Report</h1>
+    </div>
+    <div class="header-meta">
+      Data: Ahrefs Paid Keywords Export<br>
+      Temu dataset: 2,500 US keywords<br>
+      SDC dataset: 170 keywords<br>
+      Generated April 29, 2026
+    </div>
+  </div>
+  <div class="header-verdict">
+    <div class="header-verdict-inner">
+      <div class="verdict-icon">✓</div>
+      <div class="verdict-text">
+        <strong>Verdict: Your keyword portfolio is 99.4% Temu-free.</strong> Out of 170 SDC paid keywords compared against Temu's 2,500 US paid keywords, only 1 exact match was found — "bulk acrylic tumblers" with a search volume of just 20. Temu competes in consumer impulse categories; SDC operates in B2B drinkware supply, sublimation blanks, and wholesale stainless — a fundamentally different buyer intent.
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <!-- STATS -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-title">Keyword Overlap Summary</div>
+      <div class="section-sub">Ahrefs paid keywords, April 2026</div>
+    </div>
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="stat-label">SDC Keywords</div>
+        <div class="stat-value">170</div>
+        <div class="stat-note">Active paid keyword portfolio</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Temu Keywords (US)</div>
+        <div class="stat-value">2,500</div>
+        <div class="stat-note">Down 66% from Dec 2025 peak</div>
+      </div>
+      <div class="stat-card mint">
+        <div class="stat-label">Exact Overlap</div>
+        <div class="stat-value">1</div>
+        <div class="stat-note">"bulk acrylic tumblers" — vol: 20</div>
+      </div>
+      <div class="stat-card mint">
+        <div class="stat-label">SDC Temu-Free</div>
+        <div class="stat-value">99.4%</div>
+        <div class="stat-note">169 of 170 keywords have zero Temu overlap</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TEMU TREND -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-title">Temu's US Paid Search Collapse</div>
+      <div class="section-sub">Oct 2025 – Apr 2026 · Likely tariff-driven</div>
+    </div>
+    <div class="trend-strip">
+      <div class="trend-item">
+        <div class="trend-val">361K</div>
+        <div class="trend-lbl">Peak traffic (Dec '25)</div>
+      </div>
+      <div class="trend-divider"></div>
+      <div class="trend-item">
+        <div class="trend-val down">57K</div>
+        <div class="trend-lbl">Current traffic (Apr '26)</div>
+      </div>
+      <div class="trend-divider"></div>
+      <div class="trend-item">
+        <div class="trend-val down">−84%</div>
+        <div class="trend-lbl">Traffic decline</div>
+      </div>
+      <div class="trend-divider"></div>
+      <div class="trend-item">
+        <div class="trend-val">9,200</div>
+        <div class="trend-lbl">Peak keywords (Dec '25)</div>
+      </div>
+      <div class="trend-divider"></div>
+      <div class="trend-item">
+        <div class="trend-val down">3,095</div>
+        <div class="trend-lbl">Current keywords (Apr '26)</div>
+      </div>
+      <div class="trend-divider"></div>
+      <div class="trend-item">
+        <div class="trend-val down">−66%</div>
+        <div class="trend-lbl">Keyword decline</div>
+      </div>
+    </div>
+    <div class="chart-grid">
+      <div class="chart-card">
+        <div class="chart-title">Temu Paid Traffic — Monthly Avg</div>
+        <div class="chart-wrap" style="height:220px;">
+          <canvas id="temuTrafficChart" role="img" aria-label="Temu paid traffic trend Oct 2025 to Apr 2026. Peaked at 361K in December, collapsed to 57K by April 2026."></canvas>
+        </div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-title">SDC Keyword Portfolio — by Category</div>
+        <div class="chart-wrap" style="height:220px;">
+          <canvas id="catChart" role="img" aria-label="SDC keyword categories. Tumbler 96, Sublimation 53, Stainless Steel 10, Other 11."></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RISK BY THEME -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-title">Overlap Risk by Keyword Theme</div>
+      <div class="section-sub">SDC keyword categories vs. Temu's presence</div>
+    </div>
+    <div class="risk-grid">
+      <div class="risk-card">
+        <div class="risk-card-header">
+          <div class="risk-label">Tumbler</div>
+          <div class="risk-badge rb-watch">1 overlap</div>
+        </div>
+        <div class="risk-count">96 kws</div>
+        <div class="risk-desc">Your largest category. Temu has only 3 tumbler keywords — all generic consumer terms unrelated to your B2B/wholesale angle.</div>
+        <div class="risk-temu">Only Temu overlap: "bulk acrylic tumblers" (Vol: 20)</div>
+      </div>
+      <div class="risk-card">
+        <div class="risk-card-header">
+          <div class="risk-label">Sublimation</div>
+          <div class="risk-badge rb-none">Zero overlap</div>
+        </div>
+        <div class="risk-count">53 kws</div>
+        <div class="risk-desc">Temu has 1 sublimation keyword ("acrylic sublimation blanks") — entirely different from your sublimation printing and process keywords.</div>
+        <div class="risk-temu">Temu not in your sublimation space at all</div>
+      </div>
+      <div class="risk-card">
+        <div class="risk-card-header">
+          <div class="risk-label">Stainless Steel</div>
+          <div class="risk-badge rb-none">Zero overlap</div>
+        </div>
+        <div class="risk-count">10 kws</div>
+        <div class="risk-desc">Temu's only stainless keyword is "stainless steel hinges marine" — completely unrelated to your drinkware and depot terms.</div>
+        <div class="risk-temu">Temu not in your stainless space</div>
+      </div>
+      <div class="risk-card">
+        <div class="risk-card-header">
+          <div class="risk-label">Bulk / Wholesale</div>
+          <div class="risk-badge rb-watch">Watch</div>
+        </div>
+        <div class="risk-count">4 kws</div>
+        <div class="risk-desc">Temu bids on 156 "bulk" keywords — but none are drinkware-specific. Monitor if Temu expands into B2B drinkware wholesale.</div>
+        <div class="risk-temu">Temu "bulk" = makeup bags, pom poms, party favors</div>
+      </div>
+      <div class="risk-card">
+        <div class="risk-card-header">
+          <div class="risk-label">Engraving / Laser</div>
+          <div class="risk-badge rb-none">Zero overlap</div>
+        </div>
+        <div class="risk-count">~8 kws</div>
+        <div class="risk-desc">Temu has zero custom/personalization keywords. Customization is antithetical to their mass-commodity model.</div>
+        <div class="risk-temu">Temu does not bid on custom or engraving terms</div>
+      </div>
+      <div class="risk-card">
+        <div class="risk-card-header">
+          <div class="risk-label">Brand</div>
+          <div class="risk-badge rb-none">Zero overlap</div>
+        </div>
+        <div class="risk-count">2 kws</div>
+        <div class="risk-desc">Temu has zero keywords targeting Hogg Outfitters or The Stainless Depot Company brand terms.</div>
+        <div class="risk-temu">Your brand is fully protected from Temu</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- KEYWORD TABLE -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-title">Full Keyword Explorer</div>
+      <div class="section-sub">All 170 SDC keywords — sortable, filterable</div>
+    </div>
+    <div class="kw-controls">
+      <input type="text" id="kwSearch" placeholder="Search keywords…" oninput="renderTable()">
+      <button class="filter-btn active" data-cat="all" onclick="setFilter('all')">All (170)</button>
+      <button class="filter-btn" data-cat="Tumbler" onclick="setFilter('Tumbler')">Tumbler (96)</button>
+      <button class="filter-btn" data-cat="Sublimation" onclick="setFilter('Sublimation')">Sublimation (53)</button>
+      <button class="filter-btn" data-cat="Stainless Steel" onclick="setFilter('Stainless Steel')">Stainless (10)</button>
+      <button class="filter-btn overlap-btn" data-cat="overlap" onclick="setFilter('overlap')">⚠ Temu Overlap (1)</button>
+    </div>
+    <div class="kw-table-wrap">
+      <div class="kw-scroll">
+        <table>
+          <thead>
+            <tr>
+              <th onclick="sortBy('kw')">Keyword</th>
+              <th onclick="sortBy('cat')">Category</th>
+              <th onclick="sortBy('vol')">Volume</th>
+              <th onclick="sortBy('cpc')">CPC</th>
+              <th onclick="sortBy('traffic')">SDC Traffic</th>
+              <th onclick="sortBy('overlap')">Temu</th>
+            </tr>
+          </thead>
+          <tbody id="kwBody"></tbody>
+        </table>
+      </div>
+    </div>
+    <div class="kw-count" id="kwCount">Showing 170 keywords</div>
+  </div>
+
+  <!-- WHAT TEMU BIDS ON -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-title">What Temu Actually Bids On</div>
+      <div class="section-sub">Top 12 Temu keywords by paid traffic — zero overlap with SDC</div>
+    </div>
+    <div class="temu-header">
+      <div class="temu-header-icon">T</div>
+      <div class="temu-header-text">Temu's top keywords are mass consumer categories — home goods, fashion, garden, cheap alternatives. <strong>None intersect with B2B drinkware, sublimation blanks, or wholesale stainless.</strong> These are fundamentally different buyer journeys.</div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">Temu Top 12 Keywords by Paid Traffic</div>
+      <div class="chart-wrap" style="height:340px;">
+        <canvas id="temuTopChart" role="img" aria-label="Temu top keywords by paid traffic. Ali express leads at 56814. None are drinkware related."></canvas>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  THE STAINLESS DEPOT COMPANY · HOGG OUTFITTERS · COMPETITIVE INTELLIGENCE REPORT · APRIL 2026
+</footer>
+
+<script>
+const KW_DATA = [{"kw":"stainless steel cups with lids","cat":"Stainless Steel","vol":400,"cpc":0.28,"traffic":48,"overlap":false},{"kw":"stainless steel depot","cat":"Stainless Steel","vol":5800,"cpc":0.25,"traffic":35,"overlap":false},{"kw":"hoggoutfitters tumblers","cat":"Tumbler","vol":200,"cpc":null,"traffic":31,"overlap":false},{"kw":"wholesale blank tumblers","cat":"Tumbler","vol":150,"cpc":0.6,"traffic":23,"overlap":false},{"kw":"blank sublimation","cat":"Sublimation","vol":60,"cpc":0.43,"traffic":16,"overlap":false},{"kw":"screen print vs sublimation","cat":"Sublimation","vol":150,"cpc":0.12,"traffic":16,"overlap":false},{"kw":"wine tumblers in bulk","cat":"Tumbler","vol":150,"cpc":0.38,"traffic":null,"overlap":false},{"kw":"tumbler cups bulk","cat":"Tumbler","vol":100,"cpc":0.45,"traffic":13,"overlap":false},{"kw":"sublimation tumbler blanks","cat":"Tumbler","vol":200,"cpc":0.78,"traffic":null,"overlap":false},{"kw":"stainless depot","cat":"Stainless Steel","vol":1100,"cpc":0.63,"traffic":12,"overlap":false},{"kw":"tumbler for sublimation","cat":"Tumbler","vol":100,"cpc":0.37,"traffic":11,"overlap":false},{"kw":"sublimation vs screen print","cat":"Sublimation","vol":100,"cpc":0.09,"traffic":null,"overlap":false},{"kw":"tumblers for sublimation","cat":"Tumbler","vol":100,"cpc":0.37,"traffic":10,"overlap":false},{"kw":"hoggs tumblers","cat":"Tumbler","vol":70,"cpc":0.19,"traffic":null,"overlap":false},{"kw":"what is dye sublimation printing","cat":"Sublimation","vol":150,"cpc":0.06,"traffic":null,"overlap":false},{"kw":"water bottle blanks","cat":"Other","vol":40,"cpc":0.69,"traffic":7,"overlap":false},{"kw":"12 oz tumbler","cat":"Tumbler","vol":450,"cpc":0.29,"traffic":7,"overlap":false},{"kw":"stainless steel sublimation tumbler","cat":"Tumbler","vol":100,"cpc":0.23,"traffic":null,"overlap":false},{"kw":"stainless steel warehouse","cat":"Stainless Steel","vol":90,"cpc":1.61,"traffic":null,"overlap":false},{"kw":"tumbler press time and temp","cat":"Tumbler","vol":50,"cpc":0.31,"traffic":5,"overlap":false},{"kw":"how to use sublimation","cat":"Sublimation","vol":50,"cpc":0.07,"traffic":null,"overlap":false},{"kw":"wholesale tumblers for engraving","cat":"Tumbler","vol":60,"cpc":1.28,"traffic":4,"overlap":false},{"kw":"tumblers for laser engraving","cat":"Tumbler","vol":100,"cpc":0.5,"traffic":4,"overlap":false},{"kw":"wholesale tumblers with lids and straws","cat":"Tumbler","vol":70,"cpc":null,"traffic":4,"overlap":false},{"kw":"white tumblers in bulk","cat":"Tumbler","vol":90,"cpc":0.98,"traffic":4,"overlap":false},{"kw":"how do you use sublimation paper","cat":"Sublimation","vol":60,"cpc":0.07,"traffic":3,"overlap":false},{"kw":"bulk tumblers with lids and straws","cat":"Tumbler","vol":100,"cpc":1.45,"traffic":3,"overlap":false},{"kw":"hogg sublimation tumblers","cat":"Tumbler","vol":150,"cpc":0.35,"traffic":3,"overlap":false},{"kw":"cheap tumblers in bulk","cat":"Tumbler","vol":150,"cpc":0.48,"traffic":3,"overlap":false},{"kw":"blanks for sublimation","cat":"Sublimation","vol":150,"cpc":0.48,"traffic":3,"overlap":false},{"kw":"glass sublimation tumbler","cat":"Tumbler","vol":40,"cpc":0.35,"traffic":3,"overlap":false},{"kw":"tumbler wholesale distributor","cat":"Tumbler","vol":80,"cpc":0.9,"traffic":2,"overlap":false},{"kw":"sublimation drinkware","cat":"Sublimation","vol":60,"cpc":0.65,"traffic":2,"overlap":false},{"kw":"stainless steel sublimation","cat":"Sublimation","vol":20,"cpc":0.4,"traffic":2,"overlap":false},{"kw":"sublimation snow globe tumbler","cat":"Tumbler","vol":20,"cpc":0.33,"traffic":2,"overlap":false},{"kw":"best resin for tumblers","cat":"Tumbler","vol":50,"cpc":0.38,"traffic":1,"overlap":false},{"kw":"cheap insulated tumblers","cat":"Tumbler","vol":50,"cpc":0.28,"traffic":1,"overlap":false},{"kw":"sublimation kits","cat":"Sublimation","vol":50,"cpc":0.27,"traffic":1,"overlap":false},{"kw":"bulk tumblers for laser engraving","cat":"Tumbler","vol":40,"cpc":0.7,"traffic":1,"overlap":false},{"kw":"frosted sublimation tumblers","cat":"Tumbler","vol":10,"cpc":0.5,"traffic":1,"overlap":false},{"kw":"making sublimation shirts","cat":"Sublimation","vol":10,"cpc":0.82,"traffic":1,"overlap":false},{"kw":"steel tumblers bulk","cat":"Tumbler","vol":10,"cpc":1.01,"traffic":1,"overlap":false},{"kw":"stainless steel party cups","cat":"Stainless Steel","vol":30,"cpc":1.84,"traffic":1,"overlap":false},{"kw":"tumbler supplies","cat":"Tumbler","vol":30,"cpc":null,"traffic":1,"overlap":false},{"kw":"what do you need for sublimation shirts","cat":"Sublimation","vol":50,"cpc":0.39,"traffic":1,"overlap":false},{"kw":"bulk acrylic tumblers","cat":"Tumbler","vol":20,"cpc":1.11,"traffic":null,"overlap":true},{"kw":"sublimation cups bulk","cat":"Sublimation","vol":100,"cpc":0.87,"traffic":null,"overlap":false},{"kw":"wholesale plastic tumblers with lids and straws","cat":"Tumbler","vol":40,"cpc":0.98,"traffic":null,"overlap":false},{"kw":"stainless steel shop","cat":"Stainless Steel","vol":60,"cpc":1.95,"traffic":null,"overlap":false},{"kw":"laser engraved tumblers wholesale","cat":"Tumbler","vol":40,"cpc":2.62,"traffic":null,"overlap":false},{"kw":"16 oz tumbler with lid and straw","cat":"Tumbler","vol":70,"cpc":0.25,"traffic":null,"overlap":false},{"kw":"sublimation tumbler press time and temp","cat":"Tumbler","vol":20,"cpc":0.51,"traffic":1,"overlap":false},{"kw":"hogg outfitters llc","cat":"Brand","vol":10,"cpc":null,"traffic":1,"overlap":false},{"kw":"hogg outfitters, llc","cat":"Brand","vol":10,"cpc":null,"traffic":1,"overlap":false},{"kw":"stainless steel tumblers with handles","cat":"Tumbler","vol":20,"cpc":0.39,"traffic":1,"overlap":false},{"kw":"skinny tumbler with handle","cat":"Tumbler","vol":20,"cpc":0.28,"traffic":1,"overlap":false},{"kw":"bluetooth sublimation tumbler","cat":"Tumbler","vol":20,"cpc":0.4,"traffic":1,"overlap":false},{"kw":"how to apply uv dtf transfers","cat":"Other","vol":30,"cpc":null,"traffic":1,"overlap":false},{"kw":"water bottle blanks","cat":"Other","vol":40,"cpc":0.69,"traffic":7,"overlap":false},{"kw":"sublimation vs screen print","cat":"Sublimation","vol":100,"cpc":0.09,"traffic":null,"overlap":false},{"kw":"blank water bottles bulk","cat":"Bulk / Wholesale","vol":30,"cpc":0.75,"traffic":1,"overlap":false},{"kw":"cup wholesale","cat":"Bulk / Wholesale","vol":40,"cpc":null,"traffic":1,"overlap":false},{"kw":"blank cups wholesale","cat":"Bulk / Wholesale","vol":10,"cpc":0.91,"traffic":null,"overlap":false},{"kw":"stanley dupe bulk","cat":"Bulk / Wholesale","vol":0,"cpc":null,"traffic":null,"overlap":false},{"kw":"wholesale metal tumblers","cat":"Tumbler","vol":10,"cpc":1.5,"traffic":null,"overlap":false},{"kw":"where to buy wholesale stainless steel tumblers","cat":"Tumbler","vol":10,"cpc":1.12,"traffic":1,"overlap":false},{"kw":"wholesale tumblers in bulk","cat":"Tumbler","vol":10,"cpc":null,"traffic":null,"overlap":false},{"kw":"wholesale tumblers with straws","cat":"Tumbler","vol":10,"cpc":0.89,"traffic":null,"overlap":false},{"kw":"stainlessdepot","cat":"Stainless Steel","vol":70,"cpc":0.63,"traffic":null,"overlap":false},{"kw":"stainless steel depot.com","cat":"Stainless Steel","vol":0,"cpc":null,"traffic":null,"overlap":false},{"kw":"thestainlessdepotcompany.com coupon code","cat":"Stainless Steel","vol":0,"cpc":0.24,"traffic":null,"overlap":false},{"kw":"bulk stainless water bottles","cat":"Stainless Steel","vol":20,"cpc":2.18,"traffic":null,"overlap":false},{"kw":"stainless steel vacuum tumbler","cat":"Tumbler","vol":20,"cpc":null,"traffic":2,"overlap":false},{"kw":"20oz sublimation tumblers","cat":"Tumbler","vol":40,"cpc":null,"traffic":2,"overlap":false},{"kw":"sublimation glass tumblers","cat":"Tumbler","vol":10,"cpc":null,"traffic":1,"overlap":false},{"kw":"tapered sublimation tumbler","cat":"Tumbler","vol":10,"cpc":0.27,"traffic":1,"overlap":false},{"kw":"hogg 20 oz tumbler","cat":"Tumbler","vol":30,"cpc":null,"traffic":1,"overlap":false},{"kw":"40oz tumbler sublimation","cat":"Tumbler","vol":10,"cpc":null,"traffic":1,"overlap":false},{"kw":"insulated tumbler bulk","cat":"Tumbler","vol":30,"cpc":null,"traffic":1,"overlap":false},{"kw":"sublimination tumbler","cat":"Tumbler","vol":20,"cpc":null,"traffic":2,"overlap":false},{"kw":"20 oz tumbler bulk","cat":"Tumbler","vol":80,"cpc":0.52,"traffic":1,"overlap":false},{"kw":"wine tumbler with lid bulk","cat":"Tumbler","vol":80,"cpc":0.36,"traffic":1,"overlap":false},{"kw":"bulk metal tumblers","cat":"Tumbler","vol":30,"cpc":1.45,"traffic":null,"overlap":false},{"kw":"sublimation dog bowls","cat":"Sublimation","vol":20,"cpc":0.32,"traffic":null,"overlap":false},{"kw":"new sublimation products","cat":"Sublimation","vol":40,"cpc":0.69,"traffic":null,"overlap":false},{"kw":"blank cups for sublimation","cat":"Sublimation","vol":20,"cpc":0.67,"traffic":null,"overlap":false},{"kw":"water bottles for sublimation","cat":"Sublimation","vol":20,"cpc":null,"traffic":null,"overlap":false},{"kw":"20 oz sublimation water bottle","cat":"Sublimation","vol":30,"cpc":0.45,"traffic":null,"overlap":false},{"kw":"best place to get sublimation blanks","cat":"Sublimation","vol":50,"cpc":0.48,"traffic":null,"overlap":false},{"kw":"material for sublimation","cat":"Sublimation","vol":20,"cpc":0.45,"traffic":null,"overlap":false},{"kw":"how to start sublimation","cat":"Sublimation","vol":20,"cpc":0.24,"traffic":null,"overlap":false},{"kw":"what can you do with sublimation printer","cat":"Sublimation","vol":30,"cpc":0.17,"traffic":null,"overlap":false},{"kw":"sublimation transfer paper how to use","cat":"Sublimation","vol":20,"cpc":null,"traffic":null,"overlap":false},{"kw":"what type of printer do i need for sublimation","cat":"Sublimation","vol":30,"cpc":0.33,"traffic":null,"overlap":false},{"kw":"pink sublimation mugs","cat":"Sublimation","vol":20,"cpc":0.47,"traffic":null,"overlap":false},{"kw":"blank sublimation cups","cat":"Sublimation","vol":10,"cpc":0.39,"traffic":null,"overlap":false},{"kw":"sublimation blanks wholesale vendors","cat":"Sublimation","vol":0,"cpc":null,"traffic":null,"overlap":false},{"kw":"sublimation or screen printing","cat":"Sublimation","vol":10,"cpc":0.45,"traffic":null,"overlap":false},{"kw":"sublimation versus vinyl","cat":"Sublimation","vol":10,"cpc":null,"traffic":1,"overlap":false},{"kw":"tazas para sublimacion","cat":"Sublimation","vol":10,"cpc":null,"traffic":null,"overlap":false},{"kw":"sublimation can koozies metal","cat":"Sublimation","vol":10,"cpc":0.45,"traffic":null,"overlap":false},{"kw":"polyester blanket for sublimation","cat":"Sublimation","vol":10,"cpc":0.34,"traffic":null,"overlap":false},{"kw":"what's the best printer for sublimation","cat":"Sublimation","vol":20,"cpc":0.43,"traffic":null,"overlap":false},{"kw":"hoggoutfitters sublimation","cat":"Sublimation","vol":0,"cpc":null,"traffic":null,"overlap":false},{"kw":"sublimation ready to press bundle","cat":"Sublimation","vol":0,"cpc":0.5,"traffic":null,"overlap":false},{"kw":"what do i need to start making sublimation shirts","cat":"Sublimation","vol":0,"cpc":0.3,"traffic":null,"overlap":false},{"kw":"cup press sublimation","cat":"Sublimation","vol":0,"cpc":0.29,"traffic":null,"overlap":false},{"kw":"glass cups for sublimation","cat":"Sublimation","vol":0,"cpc":null,"traffic":null,"overlap":false},{"kw":"sublimation baby bottle","cat":"Sublimation","vol":0,"cpc":null,"traffic":null,"overlap":false},{"kw":"cutting board sublimation","cat":"Sublimation","vol":10,"cpc":null,"traffic":null,"overlap":false},{"kw":"sublimation 4 in 1 can cooler","cat":"Sublimation","vol":0,"cpc":null,"traffic":null,"overlap":false},{"kw":"heat press settings for sublimation shirt","cat":"Sublimation","vol":0,"cpc":null,"traffic":null,"overlap":false},{"kw":"what is the difference between sublimation and screen print","cat":"Sublimation","vol":0,"cpc":null,"traffic":null,"overlap":false},{"kw":"which is better sublimation or screen printing","cat":"Sublimation","vol":0,"cpc":null,"traffic":null,"overlap":false},{"kw":"temperature for heat press sublimation","cat":"Sublimation","vol":0,"cpc":null,"traffic":null,"overlap":false},{"kw":"how do you sublimate","cat":"Sublimation","vol":30,"cpc":0.05,"traffic":null,"overlap":false},{"kw":"how do you sublimate a shirt","cat":"Sublimation","vol":10,"cpc":0.75,"traffic":null,"overlap":false},{"kw":"what is sublimation printing on mugs","cat":"Sublimation","vol":10,"cpc":0.29,"traffic":null,"overlap":false},{"kw":"what paper do you use for sublimation","cat":"Sublimation","vol":10,"cpc":null,"traffic":null,"overlap":false},{"kw":"what temperature for sublimation shirts","cat":"Sublimation","vol":10,"cpc":0.04,"traffic":1,"overlap":false},{"kw":"what kind of sublimation paper do i need","cat":"Sublimation","vol":0,"cpc":null,"traffic":null,"overlap":false},{"kw":"how to make tumblers with sublimation","cat":"Tumbler","vol":10,"cpc":0.13,"traffic":null,"overlap":false},{"kw":"how to print on sublimation paper","cat":"Sublimation","vol":150,"cpc":0.14,"traffic":null,"overlap":false},{"kw":"how to engrave tumblers","cat":"Tumbler","vol":30,"cpc":0.34,"traffic":null,"overlap":false},{"kw":"stainless steel tumbler ideas","cat":"Tumbler","vol":10,"cpc":null,"traffic":null,"overlap":false},{"kw":"where to buy stainless steel tumblers","cat":"Tumbler","vol":0,"cpc":0.68,"traffic":null,"overlap":false},{"kw":"heat press kits","cat":"Other","vol":10,"cpc":0.25,"traffic":null,"overlap":false},{"kw":"sunlimation","cat":"Other","vol":100,"cpc":0.0,"traffic":null,"overlap":false},{"kw":"30 oz stanley dupe","cat":"Other","vol":0,"cpc":0.41,"traffic":null,"overlap":false},{"kw":"stainless steel depot tumblers","cat":"Tumbler","vol":10,"cpc":null,"traffic":1,"overlap":false},{"kw":"hogg bluetooth speaker tumbler","cat":"Tumbler","vol":10,"cpc":null,"traffic":null,"overlap":false},{"kw":"hogg tumblers website","cat":"Tumbler","vol":40,"cpc":null,"traffic":3,"overlap":false},{"kw":"20 oz sublimation tumbler template size","cat":"Tumbler","vol":60,"cpc":1.16,"traffic":null,"overlap":false},{"kw":"what do i need to start making tumblers","cat":"Tumbler","vol":0,"cpc":null,"traffic":null,"overlap":false}];
+
+let currentFilter = 'all';
+let sortKey = 'vol';
+let sortDir = -1;
+
+function setFilter(f) {
+  currentFilter = f;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.toggle('active', b.dataset.cat === f));
+  renderTable();
+}
+
+function sortBy(key) {
+  if (sortKey === key) sortDir *= -1;
+  else { sortKey = key; sortDir = -1; }
+  document.querySelectorAll('thead th').forEach(th => { th.classList.remove('sort-asc','sort-desc'); });
+  const colMap = {'kw':0,'cat':1,'vol':2,'cpc':3,'traffic':4,'overlap':5};
+  const idx = colMap[key];
+  const ths = document.querySelectorAll('thead th');
+  if (ths[idx]) ths[idx].classList.add(sortDir === 1 ? 'sort-asc' : 'sort-desc');
+  renderTable();
+}
+
+function renderTable() {
+  const search = document.getElementById('kwSearch').value.toLowerCase();
+  let rows = KW_DATA.filter(r => {
+    if (currentFilter === 'overlap') return r.overlap;
+    if (currentFilter !== 'all') return r.cat === currentFilter;
+    return true;
+  }).filter(r => !search || r.kw.toLowerCase().includes(search));
+
+  rows.sort((a,b) => {
+    let av = a[sortKey], bv = b[sortKey];
+    if (av === null) av = -1;
+    if (bv === null) bv = -1;
+    if (typeof av === 'string') return av.localeCompare(bv) * sortDir;
+    if (typeof av === 'boolean') return ((av?1:0)-(bv?1:0)) * sortDir;
+    return (av - bv) * sortDir;
+  });
+
+  document.getElementById('kwBody').innerHTML = rows.map(r => `
+    <tr class="${r.overlap ? 'overlap-row' : ''}">
+      <td>${r.kw}</td>
+      <td><span class="cat-pill">${r.cat}</span></td>
+      <td>${r.vol ? r.vol.toLocaleString() : '—'}</td>
+      <td>${r.cpc != null ? '$'+r.cpc.toFixed(2) : '—'}</td>
+      <td>${r.traffic != null ? r.traffic : '—'}</td>
+      <td>${r.overlap ? '<span class="overlap-tag">⚠ YES</span>' : '<span class="clear-tag">✓ Clear</span>'}</td>
+    </tr>
+  `).join('');
+  document.getElementById('kwCount').textContent = `Showing ${rows.length} of 170 keywords`;
+}
+
+renderTable();
+sortBy('vol');
+
+// TEMU TRAFFIC CHART
+new Chart(document.getElementById('temuTrafficChart'), {
+  type: 'line',
+  data: {
+    labels: ['Oct 25','Nov 25','Dec 25','Jan 26','Feb 26','Mar 26','Apr 26'],
+    datasets: [{
+      data: [198367,233126,361457,223980,26856,17421,56623],
+      borderColor: '#E5966E',
+      backgroundColor: 'rgba(229,150,110,0.1)',
+      fill: true,
+      tension: 0.4,
+      pointRadius: 5,
+      pointBackgroundColor: '#E5966E',
+      borderWidth: 2.5
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { display: false } },
+    scales: {
+      y: { ticks: { callback: v => (v/1000).toFixed(0)+'K', font:{size:11}, color:'#888' }, grid: { color: 'rgba(0,0,0,0.06)' } },
+      x: { ticks: { font:{size:11}, color:'#888' }, grid: { display: false } }
+    }
+  }
+});
+
+// CATEGORY DONUT
+new Chart(document.getElementById('catChart'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Tumbler','Sublimation','Stainless Steel','Bulk/Wholesale','Other/Brand'],
+    datasets: [{
+      data: [96,53,10,4,7],
+      backgroundColor: ['#182E49','#E5966E','#D8F5E2','#E6DFE2','#9BB8C7'],
+      borderColor: '#FEFCF8',
+      borderWidth: 3
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    cutout: '65%',
+    plugins: {
+      legend: {
+        position: 'right',
+        labels: { font: { size: 11, family: "'Noto Sans'" }, padding: 12, usePointStyle: true, pointStyleWidth: 10 }
+      }
+    }
+  }
+});
+
+// TEMU TOP CHART
+new Chart(document.getElementById('temuTopChart'), {
+  type: 'bar',
+  data: {
+    labels: ['ali express','diamond painting','outdoor patio chairs','temu.com my orders','full size bed frame','seed starting trays','twin bed frame','mens tank tops','chicken coops','discount patio furniture','exercise equipment','cheap graphic tees'],
+    datasets: [{
+      data: [56814,4716,4031,3961,3614,3498,3462,3246,2406,2378,2322,2058],
+      backgroundColor: '#182E49',
+      borderRadius: 2
+    }]
+  },
+  options: {
+    indexAxis: 'y',
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { ticks: { callback: v => v.toLocaleString(), font:{size:11}, color:'#888' }, grid: { color: 'rgba(0,0,0,0.06)' } },
+      y: { ticks: { font:{size:11}, color:'#444' }, grid: { display: false } }
+    }
+  }
+});
+</script>
+</body>
+</html>
