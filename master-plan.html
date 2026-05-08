@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SEO Master Plan — The Stainless Depot Company</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;700;900&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#182E49;--cream:#FBF3F0;--off-white:#FEFCF8;--mint:#D8F5E2;--tan:#E6DFE2;--orange:#E5966E;--off-black:#101010;--alert:#C44536;--green:#2D7D46;}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Noto Sans',sans-serif;background:var(--cream);color:var(--navy);line-height:1.6;-webkit-font-smoothing:antialiased;}
+.sticky-nav{position:sticky;top:0;z-index:100;background:var(--navy);padding:0 40px;display:flex;align-items:center;overflow-x:auto;scrollbar-width:none;}
+.sticky-nav::-webkit-scrollbar{display:none;}
+.nav-logo{font-weight:900;font-size:11px;color:var(--orange);letter-spacing:2px;text-transform:uppercase;padding:14px 16px 14px 0;margin-right:12px;white-space:nowrap;border-right:1px solid rgba(255,255,255,0.1);}
+.nav-links{display:flex;}
+.nav-link{font-size:12px;font-weight:700;color:rgba(255,255,255,0.5);padding:14px 14px;cursor:pointer;white-space:nowrap;border-bottom:3px solid transparent;transition:all 0.15s;}
+.nav-link:hover,.nav-link.active{color:var(--off-white);border-bottom-color:var(--orange);}
+.nav-right{margin-left:auto;display:flex;align-items:center;gap:10px;padding-left:12px;}
+.prog-text{font-size:11px;color:rgba(255,255,255,0.4);white-space:nowrap;}
+.prog-bar{width:56px;height:3px;background:rgba(255,255,255,0.1);border-radius:2px;overflow:hidden;}
+.prog-fill{height:100%;background:var(--orange);border-radius:2px;transition:width 0.3s;}
+.hero{background:var(--navy);padding:72px 48px;position:relative;overflow:hidden;}
+.hero::before{content:"";position:absolute;top:-150px;right:-150px;width:500px;height:500px;border-radius:50%;background:var(--orange);opacity:0.1;pointer-events:none;}
+.hero::after{content:"";position:absolute;bottom:-200px;left:-100px;width:400px;height:400px;border-radius:50%;background:var(--mint);opacity:0.07;pointer-events:none;}
+.hi{max-width:1100px;margin:0 auto;position:relative;z-index:1;}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--orange);margin-bottom:14px;}
+.hero h1{font-weight:900;font-size:clamp(34px,5vw,60px);line-height:1.05;letter-spacing:-1.5px;margin-bottom:14px;color:var(--off-white);}
+.hero-sub{font-weight:300;font-size:17px;max-width:720px;color:var(--cream);margin-bottom:32px;line-height:1.65;}
+.meta-row{display:flex;gap:32px;flex-wrap:wrap;padding-top:24px;border-top:1px solid rgba(255,255,255,0.1);}
+.mi{display:flex;flex-direction:column;gap:2px;}
+.ml{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--orange);}
+.mv{font-size:14px;color:var(--off-white);}
+.ps{display:none;}
+.ps.active{display:block;}
+.pi{max-width:1100px;margin:0 auto;padding:52px 48px;}
+.se{font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--orange);margin-bottom:10px;}
+.sh2{font-weight:900;font-size:clamp(24px,3.5vw,40px);letter-spacing:-1px;line-height:1.1;margin-bottom:12px;}
+.sl{font-size:16px;font-weight:300;max-width:820px;margin-bottom:24px;color:var(--off-black);line-height:1.65;}
+.sg{display:grid;grid-template-columns:repeat(auto-fit,minmax(185px,1fr));gap:12px;margin:20px 0;}
+.sb{background:var(--off-white);border:1px solid var(--tan);padding:20px;}
+.sn{font-weight:900;font-size:36px;line-height:1;letter-spacing:-1px;margin-bottom:4px;}
+.sn.or{color:var(--orange);}
+.sn.al{color:var(--alert);}
+.slb{font-size:10px;font-weight:700;letter-spacing:1.3px;text-transform:uppercase;opacity:0.65;}
+.co{border-left:5px solid var(--navy);padding:16px 20px;margin:16px 0;}
+.co.mint{background:var(--mint);}
+.co.warn{background:#FFF5F2;border-left-color:var(--alert);}
+.co.info{background:var(--off-white);border-left-color:var(--navy);}
+.cl{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:5px;}
+.co.mint .cl,.co.info .cl{color:var(--navy);}
+.co.warn .cl{color:var(--alert);}
+.co p{font-size:14px;color:var(--off-black);margin-bottom:7px;line-height:1.55;}
+.co p:last-child{margin-bottom:0;}
+.co ul{padding-left:16px;margin-top:4px;}
+.co li{font-size:14px;color:var(--off-black);margin-bottom:4px;}
+.co strong{color:var(--navy);}
+.og{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;margin:24px 0;}
+.oc{background:var(--off-white);border:1px solid var(--tan);padding:20px;border-top:4px solid var(--orange);cursor:pointer;transition:transform 0.1s,box-shadow 0.1s;}
+.oc:hover{transform:translateY(-2px);box-shadow:0 4px 16px rgba(24,46,73,0.1);}
+.oc.pend{border-top-color:var(--tan);}
+.ocs{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:6px;}
+.ocs.prog{color:var(--orange);}
+.ocs.pend{color:#aaa;}
+.oct{font-weight:900;font-size:16px;margin-bottom:6px;color:var(--navy);}
+.ocb{font-size:13px;color:var(--off-black);line-height:1.5;}
+.ocf{font-size:10px;color:#999;margin-top:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;}
+.kt{width:100%;border-collapse:collapse;font-size:13px;margin:10px 0;}
+.kt th{background:var(--navy);color:var(--off-white);padding:8px 10px;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;text-align:left;}
+.kt td{padding:9px 10px;background:var(--off-white);border-bottom:1px solid var(--tan);vertical-align:top;line-height:1.4;}
+.kt td.url{font-family:monospace;font-size:12px;font-weight:700;color:var(--navy);}
+.kt td.bad{color:var(--alert);font-weight:700;}
+.kt td.good{color:var(--green);font-weight:700;}
+.kt td.kw{font-weight:700;color:var(--navy);}
+.tl{display:flex;flex-direction:column;gap:9px;margin-top:16px;}
+.tk{background:var(--off-white);border:1px solid var(--tan);}
+.tk.urg{border-left:5px solid var(--alert);}
+.tk.tod{border-left:5px solid var(--orange);}
+.tk.opt{border-left:5px solid var(--navy);}
+.tk.con{border-left:5px solid var(--alert);}
+.tk.wri{border-left:5px solid var(--orange);}
+.tk.bkl{border-left:5px solid var(--tan);}
+.tk.dn{border-left:5px solid var(--green);opacity:0.6;}
+.tt{display:flex;align-items:flex-start;gap:10px;padding:12px 16px;cursor:pointer;}
+.tc{width:19px;height:19px;border:2px solid var(--tan);border-radius:3px;flex-shrink:0;margin-top:2px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all 0.15s;}
+.tc:hover{border-color:var(--orange);}
+.tc.ck{background:var(--green);border-color:var(--green);}
+.tc.ck::after{content:"✓";color:white;font-size:11px;font-weight:900;}
+.tm{flex:1;}
+.ttl{display:flex;align-items:baseline;gap:7px;flex-wrap:wrap;}
+.ttx{font-weight:700;font-size:14px;color:var(--navy);line-height:1.3;}
+.ttx.st{text-decoration:line-through;opacity:0.4;}
+.tb{font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:3px 8px;border-radius:2px;}
+.tb-urg{background:var(--alert);color:white;}
+.tb-tod{background:var(--orange);color:var(--navy);}
+.tb-opt{background:var(--navy);color:white;}
+.tb-con{background:var(--alert);color:white;}
+.tb-wri{background:var(--orange);color:var(--navy);}
+.tb-bkl{background:var(--tan);color:var(--navy);}
+.tsx{font-size:12px;color:#777;margin-top:2px;line-height:1.4;}
+.td{max-height:0;overflow:hidden;transition:max-height 0.3s ease;}
+.td.open{max-height:3000px;}
+.tdi{padding:0 16px 14px 45px;border-top:1px solid var(--tan);padding-top:12px;}
+.dl{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--navy);opacity:0.55;margin-bottom:4px;margin-top:12px;}
+.dl:first-child{margin-top:0;}
+.dc{font-size:13px;color:var(--off-black);line-height:1.6;}
+.stb{background:var(--cream);border:1px solid var(--tan);padding:10px 14px;margin-top:6px;font-size:13px;}
+.stb pre{white-space:pre-wrap;font-family:inherit;font-size:13px;line-height:1.6;}
+.os{padding:6px 9px;border:1px solid var(--tan);background:var(--cream);font-family:'Noto Sans',sans-serif;font-size:12px;color:var(--off-black);border-radius:2px;margin-top:8px;}
+.os:focus{outline:none;border-color:var(--navy);}
+.nf{width:100%;margin-top:7px;padding:9px;border:1px solid var(--tan);background:var(--cream);font-family:'Noto Sans',sans-serif;font-size:13px;color:var(--off-black);resize:vertical;min-height:50px;border-radius:2px;}
+.nf:focus{outline:none;border-color:var(--navy);}
+.pnl{background:var(--off-white);border:1px solid var(--tan);margin-top:18px;}
+.ph{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;cursor:pointer;}
+.ph:hover{background:var(--cream);}
+.pt{font-weight:700;font-size:14px;color:var(--navy);}
+.ps2{font-size:12px;color:#999;}
+.ptog{font-size:11px;color:var(--orange);font-weight:700;}
+.pb{display:none;padding:16px;border-top:1px solid var(--tan);}
+.pb.open{display:block;}
+.tls{background:var(--navy);padding:52px 48px;}
+.tli{max-width:1100px;margin:0 auto;}
+.tlg{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-top:20px;}
+.tph{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);padding:22px;position:relative;}
+.tpl{position:absolute;top:-12px;left:16px;font-weight:900;font-size:10px;padding:4px 10px;letter-spacing:1px;text-transform:uppercase;}
+.tpl.now{background:var(--alert);color:white;}
+.tpl.soon{background:var(--orange);color:var(--navy);}
+.tpl.mon{background:rgba(255,255,255,0.15);color:var(--off-white);}
+.tpt{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-top:12px;margin-bottom:6px;}
+.tpt.at{color:var(--alert);}
+.tpt.ot{color:var(--orange);}
+.tpt.mt{color:var(--mint);}
+.tptt{font-weight:900;font-size:14px;color:var(--off-white);margin-bottom:6px;}
+.tpd{font-size:13px;color:var(--cream);font-weight:300;line-height:1.5;}
+.sp{position:fixed;bottom:18px;right:18px;background:var(--green);color:white;padding:8px 14px;border-radius:4px;font-size:12px;font-weight:700;letter-spacing:1px;opacity:0;transition:opacity 0.3s;pointer-events:none;z-index:200;}
+.sp.show{opacity:1;}
+.ssl{font-weight:900;font-size:16px;margin:24px 0 9px;display:flex;align-items:center;gap:8px;}
+.sbg{font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:3px 9px;border-radius:2px;}
+.sbg-al{background:var(--alert);color:white;}
+.sbg-nv{background:var(--navy);color:white;}
+.sbg-or{background:var(--orange);color:var(--navy);}
+.ngl p{font-size:14px;color:var(--off-black);margin-bottom:9px;padding-left:14px;border-left:3px solid var(--tan);}
+.ngl p strong{color:var(--navy);}
+.div{border:none;border-top:1px solid var(--tan);margin:28px 0;}
+@media(max-width:700px){
+  .sticky-nav{padding:0 14px;}
+  .hero{padding:44px 18px 52px;}
+  .pi{padding:32px 18px;}
+  .tls{padding:32px 18px;}
+}
+</style>
+</head>
+<body>
+<div class="sp" id="sp">Saved</div>
+<nav class="sticky-nav">
+  <div class="nav-logo">TSD · SEO</div>
+  <div class="nav-links">
+    <span class="nav-link active" onclick="go('ov')">Overview</span>
+    <span class="nav-link" onclick="go('p1')">P1 · Snippets</span>
+    <span class="nav-link" onclick="go('p2')">P2 · Collections</span>
+    <span class="nav-link" onclick="go('p3')">P3 · Gap Pages</span>
+    <span class="nav-link" onclick="go('p4')">P4 · Editorial</span>
+    <span class="nav-link" onclick="go('p5')">P5 · Backlog</span>
+    <span class="nav-link" onclick="go('tl')">Timeline</span>
+  </div>
+  <div class="nav-right">
+    <span class="prog-text" id="pt">0 / 0</span>
+    <div class="prog-bar"><div class="prog-fill" id="pf" style="width:0%"></div></div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hi">
+    <div class="eyebrow">SEO Master Plan · The Stainless Depot Company · May 2026</div>
+    <h1>7.8M impressions.<br>67K clicks.<br>Let's fix that.</h1>
+    <p class="hero-sub">This plan started as a competitor keyword gap analysis — we compared our rankings against HeatPressNation and MakerFlo and found keywords they rank for that we don't. That's real and worth fixing. But when we pulled our actual Google Search Console data, a much larger problem emerged: we're already getting 7.8 million search impressions every six months and converting less than 1% of them to clicks. Google is showing us to millions of people. They're just not clicking. The core work is fixing that — then filling the genuine keyword gaps on top.</p>
+    <div class="meta-row">
+      <div class="mi"><span class="ml">Site</span><span class="mv">thestainlessdepotcompany.com</span></div>
+      <div class="mi"><span class="ml">Data sources</span><span class="mv">Google Search Console + Ahrefs</span></div>
+      <div class="mi"><span class="ml">Competitors analyzed</span><span class="mv">heatpressnation.com · makerflo.com</span></div>
+      <div class="mi"><span class="ml">Implementation window</span><span class="mv">1–2 weeks</span></div>
+    </div>
+  </div>
+</header>
+
+<!-- OVERVIEW -->
+<div class="ps active" id="s-ov">
+<div class="pi">
+  <div class="se">HOW WE GOT HERE</div>
+  <h2 class="sh2">The full story.</h2>
+  <p class="sl">We started by running an Ahrefs content gap analysis — a tool that compares your keyword rankings against competitors and shows you queries where they rank but you don't. Against HeatPressNation and MakerFlo, we identified 218 keywords we're missing, representing an estimated 6,890 monthly searches. That's real opportunity.</p>
+  <p class="sl" style="margin-top:-12px;">But Ahrefs only tracks keywords in its own database — it typically undersells actual traffic by a significant margin. When we connected Google Search Console (GSC), which shows the actual data Google has on our site, two things became clear. First: we're already appearing for far more searches than Ahrefs estimated — 7.8 million impressions over six months. Second: we're converting almost none of them. Our site-wide click-through rate is 0.86%, against an industry benchmark of around 3%. We have pages ranking #1 getting 0.08% CTR. Pages at position 4 getting 0.04% CTR. That's not a ranking problem — that's a snippet problem.</p>
+
+  <div class="sg">
+    <div class="sb"><div class="sn or">7.8M</div><div class="slb">GSC impressions / 6 months</div></div>
+    <div class="sb"><div class="sn or">67K</div><div class="slb">Clicks captured</div></div>
+    <div class="sb"><div class="sn al">0.86%</div><div class="slb">Site CTR (benchmark ~3%)</div></div>
+    <div class="sb"><div class="sn al">252</div><div class="slb">Pages ranking top 10, CTR under 1%</div></div>
+  </div>
+
+  <div class="co mint">
+    <div class="cl">Why CTR is low — the root cause</div>
+    <p>Title tags and meta descriptions are the text Google shows in search results. When a title doesn't contain the words someone searched for, when it's generic brand language ("The Stainless Depot Company"), or when the meta description is 1,800 characters that gets truncated mid-sentence — searchers scroll past even when we rank on page 1. Several pages have no meta description set at all, so Google auto-generates one from random page content. Fixing these snippets is faster and higher-ROI than building new content.</p>
+  </div>
+
+  <div class="co info" style="margin-top:12px;">
+    <div class="cl">What the competitor analysis found</div>
+    <p>HeatPressNation and MakerFlo each rank for keywords we don't, but the pattern is consistent: they win with dedicated collection pages for each product category. "Wholesale tumblers" — collection page. "Bulk tumblers" — collection page. "Sublimation wood blanks" — collection page. They're not doing anything technically sophisticated. They just have a page for everything they sell.</p>
+    <p>Several of our gaps are simply missing collection pages for products we already carry, or collection pages that are competing against each other for the same queries. The competitor keywords we can realistically capture: <strong>wholesale tumblers, bulk tumblers, sublimation tumblers, sublimation blanks, Sawgrass sublimation printers, sublimation wood blanks.</strong> Keywords we're deliberately not chasing: anything Epson-specific (we don't carry Epson), heat press terms (sunsetting that line), and luggage tags (don't sell them).</p>
+  </div>
+
+  <div class="se" style="margin-top:44px;">THE FIVE PRIORITIES</div>
+  <h2 class="sh2">What we're doing about it.</h2>
+  <div class="og">
+    <div class="oc" onclick="go('p1')"><div class="ocs prog">Deliverable ready — implement today</div><div class="oct">P1 · Snippet Rewrites</div><div class="ocb">The 10 highest-impression, lowest-CTR pages on the site. Titles and meta descriptions rewritten from the actual GSC query data for each page. These 10 pages alone represent ~95K estimated lost clicks over 6 months. All being updated today, then monitored individually in GSC.</div><div class="ocf">10 pages · 538K–82K impressions each</div></div>
+    <div class="oc" onclick="go('p2')"><div class="ocs prog">Deliverable ready — implement this week</div><div class="oct">P2 · Collection Page Roles</div><div class="ocb">Five collection pages were competing for the same queries. Each now has a distinct audience and non-overlapping keywords. Targeting "wholesale tumblers" and "bulk tumblers" (queries HPN ranks #1 for), plus repositioning /powdercoated-cups to go after the "tumblers" head term (222K impressions) for DTC and one-off customization buyers.</div><div class="ocf">6 pages · 222K+ combined impressions</div></div>
+    <div class="oc" onclick="go('p3')"><div class="ocs prog">Deliverable ready — implement this week</div><div class="oct">P3 · Product Gap Pages</div><div class="ocb">The Ahrefs gap report identified 8 keywords. After checking our catalog: 5 were already covered, products we don't sell, or lines we're sunsetting. The 3 remaining: two snippet fixes on existing pages (/printers-ink, /suggested-bundles) and one new collection page (/sublimation-wood-blanks, KD 0, both competitors rank for it).</div><div class="ocf">2 snippet fixes · 1 new page · KD 0–4</div></div>
+    <div class="oc" onclick="go('p4')"><div class="ocs prog">Deliverable ready — begin this week</div><div class="oct">P4 · Editorial Calendar</div><div class="ocb">All 78 existing posts checked for cannibalization before assigning new topics. 7 of 10 originally proposed posts had existing content that would compete. Calendar is: 1 consolidation task (4 posts competing for "how to sublimate"), 6 optimization tasks (no writing), 3 genuinely new posts for the freelancer.</div><div class="ocf">1 consolidate · 6 optimize · 3 new posts</div></div>
+    <div class="oc pend" onclick="go('p5')"><div class="ocs pend">Diagnosed · Backlog</div><div class="oct">P5 · Shopify Markets Bug</div><div class="ocb">A Shopify Markets hreflang misconfiguration is causing French and Spanish blog URLs to serve globally. 565K impressions on one French URL — 0.07% from France. Real bug with limited revenue impact. The affected traffic was never going to convert (Brazilian and Indian searchers can't read French). Documented and deprioritized.</div><div class="ocf">IT/dev when capacity allows</div></div>
+  </div>
+</div>
+</div>
+
+<!-- P1 -->
+<div class="ps" id="s-p1">
+<div class="pi">
+  <div class="se">PRIORITY 1 · SNIPPET REWRITES</div>
+  <h2 class="sh2">10 pages. Update all snippets by EOD today. Then monitor individually.</h2>
+  <p class="sl">These are the 10 pages with the largest gap between how many times Google is showing them in search results and how many people are clicking. Each page was selected by calculating total recoverable clicks — a page at position 3 with 100K impressions and 0.1% CTR is losing more clicks than a page at position 8 with 10K impressions and 0.5% CTR, even though the second has worse CTR. We sorted by total opportunity, not just percentage.</p>
+
+  <div class="co mint">
+    <div class="cl">How to implement — same steps for all 10 pages</div>
+    <p><strong>For collection pages:</strong> Shopify admin → Collections → click the collection → scroll to bottom → "Search engine listing" → "Edit website SEO" → paste proposed title and meta → Save.</p>
+    <p><strong>For blog posts:</strong> Shopify admin → Blog posts → click the post → same "Search engine listing" section at bottom.</p>
+    <p><strong>For product pages:</strong> Shopify admin → Products → click the product → same section.</p>
+    <p><strong>After saving:</strong> Search for each page in an incognito browser 3–5 days later to confirm the new snippet shows. If Google still shows old text, it hasn't re-crawled yet — give it up to 2 weeks. If it shows something completely different from what you set, Google is overriding your title (see task notes for why).</p>
+    <p><strong>Monitoring:</strong> Once all 10 are deployed, pull the GSC queries-by-page report for each individually each week. You're watching for CTR improvement — not just position. These 10 are being monitored separately before rolling out the same approach to the remaining 242 low-CTR pages.</p>
+  </div>
+
+  <div class="tl" id="tl-p1"></div>
+
+  <div class="pnl" style="margin-top:24px;">
+    <div class="ph" onclick="togglePanel(this)">
+      <div><div class="pt">Full side-by-side: all 10 proposed snippets with keyword rationale</div><div class="ps2">Current title · Proposed title · Why · Impressions · CTR</div></div>
+      <div class="ptog">Show ▾</div>
+    </div>
+    <div class="pb">
+      <table class="kt">
+        <thead><tr><th>Page</th><th>Current title</th><th>Proposed title</th><th>Primary keyword &amp; why</th><th>Impr</th><th>CTR</th></tr></thead>
+        <tbody>
+          <tr><td class="url">/collections/drinkware</td><td>Bulk &amp; Wholesale Drinkware for Customization</td><td><strong>Customizable Tumblers &amp; Cups by the Unit | Stainless Depot</strong></td><td>"tumblers" — 197K impr at pos 5.98, title doesn't contain the word</td><td>538K</td><td class="bad">0.20%</td></tr>
+          <tr><td class="url">/collections/shop-by-the-case</td><td>Bulk Sublimation Tumblers</td><td><strong>Wholesale &amp; Bulk Tumblers by the Case | Stainless Depot</strong></td><td>"wholesale tumblers" (5K), "bulk tumblers" (4.9K), "tumblers in bulk" (4.8K) — HPN ranks #1 for all three</td><td>260K</td><td class="bad">0.07%</td></tr>
+          <tr><td class="url">/collections/sublimitable</td><td>Bulk Sublimation Drinkware &amp; Blanks</td><td><strong>Sublimation Tumblers &amp; Blanks | Bulk &amp; Wholesale</strong></td><td>"sublimation tumblers" (14.5K at pos 4.5), "sublimation blanks" (10.3K) — lead terms buried in current title</td><td>252K</td><td class="bad">0.56%</td></tr>
+          <tr><td class="url">/collections/close-out-sale</td><td>Sublimation Sale | Custom Drinkware &amp; Items</td><td><strong>Tumbler Closeouts &amp; Clearance Sale | Stainless Depot</strong></td><td>Meta is 66 chars — Google fills the rest with random content, producing broken snippets</td><td>189K</td><td class="bad">0.30%</td></tr>
+          <tr><td class="url">/collections/hot-new-items</td><td>New Sublimation Products</td><td><strong>New Tumblers &amp; Sublimation Blanks | Just Added</strong></td><td>Worst CTR in batch (0.04%) at pos 4.3. Meta is 1,400+ chars, completely truncated.</td><td>130K</td><td class="bad">0.04%</td></tr>
+          <tr><td class="url">/blogs/.../what-is-a-tumbler</td><td>What Is a Tumbler? A Guide to Tumbler Cups, Materials, and Uses</td><td><strong>What Is a Tumbler? Cups, Materials &amp; Uses Explained</strong></td><td>"tumbler cup" — 28.7K impr at pos 1.07 with NO meta description. Highest-leverage rewrite in the batch.</td><td>109K</td><td class="bad">0.08%</td></tr>
+          <tr><td class="url">/blogs/.../sublimation-heat-press-settings</td><td>Sublimation Heat Press Settings For Shirts, Tumblers... [99 chars, truncated]</td><td><strong>Sublimation Heat Press Settings: Time &amp; Temp Guide</strong></td><td>"sublimation temp and time" (1.1K at pos 3.45) — not in title. Title is truncated in every search result.</td><td>105K</td><td class="bad">0.26%</td></tr>
+          <tr><td class="url">/blogs/.../best-sublimation-printer</td><td>Best Sublimation Printer for Beginners: A Complete Comparison Guide for 2025</td><td><strong>Best Sublimation Printer for Beginners (2026 Guide)</strong></td><td>"best sublimation printer" — 10.3K at pos 5. Title is 76 chars (truncated). Year outdated.</td><td>94K</td><td class="bad">0.45%</td></tr>
+          <tr><td class="url">/blogs/.../best-stainless-steel-water-bottle</td><td>What Is the Best Stainless Steel Water Bottle in 2025?</td><td><strong>Best Stainless Steel Water Bottle (2026 Buyer's Guide)</strong></td><td>Currently ranking #1 for "how to clean stainless steel water bottle" (42K impr) — wrong post for that query. New title signals buyer intent, not cleaning intent.</td><td>92K</td><td class="bad">0.20%</td></tr>
+          <tr><td class="url">/products/.../hogg-20oz-skinny-tumbler</td><td>20oz Straight Skinny Tumbler W/ Sliding Lid &amp; Straw</td><td><strong>20oz Skinny Tumbler with Sliding Lid &amp; Straw | Stainless</strong></td><td>"20 oz tumbler" (7K at pos 9.6). Meta is full 1,000-char product description — truncated to something useless.</td><td>82K</td><td class="bad">0.46%</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- P2 -->
+<div class="ps" id="s-p2">
+<div class="pi">
+  <div class="se">PRIORITY 2 · COLLECTION PAGE ROLES</div>
+  <h2 class="sh2">Six pages. Each one now owns a specific audience and non-overlapping keywords.</h2>
+  <p class="sl">The core problem: multiple collection pages were all appearing for the same search queries at the same time. When Google sees several pages from the same site targeting the same query, it picks one and suppresses the rest. Neither ranks as well as a single dedicated page would. This is called keyword cannibalization and it's been limiting our ranking potential on some of the most valuable queries in our category.</p>
+
+  <div class="co info">
+    <div class="cl">The new architecture — six pages, six distinct audiences</div>
+    <ul>
+      <li><strong>/drinkware</strong> — all tumbler types, individual units, no minimums. For crafters, makers, one-offs. Keywords: "stainless steel tumbler," "custom tumblers"</li>
+      <li><strong>/shop-by-the-case</strong> — all tumbler types, case quantities. For resellers, shops, B2B. Keywords: "wholesale tumblers," "bulk tumblers," "tumblers in bulk" — queries HPN ranks #1 for and we currently don't appear for</li>
+      <li><strong>/sublimitable</strong> — everything sublimatable, all quantities. Sublimation department hub. Keywords: "sublimation tumblers," "sublimation blanks," "sublimation cups"</li>
+      <li><strong>/powdercoated-cups</strong> — powder coated tumblers by the unit. For DTC buyers + laser engraving/DTF one-offs. Keywords: "tumblers" (222K impressions), "powder coated tumblers"</li>
+      <li><strong>/powdercoated-cases</strong> — powder coated tumblers in bulk. For laser shops and DTF businesses buying in volume. Keywords: "powder coated tumblers wholesale," "bulk powder coated tumblers"</li>
+      <li><strong>/powder-coated</strong> — parent hub for all powder coated products (all quantities). Mirrors /sublimitable structure.</li>
+    </ul>
+  </div>
+
+  <div class="tl" id="tl-p2"></div>
+</div>
+</div>
+
+<!-- P3 -->
+<div class="ps" id="s-p3">
+<div class="pi">
+  <div class="se">PRIORITY 3 · PRODUCT GAP PAGES</div>
+  <h2 class="sh2">Close the remaining competitor keyword gaps.</h2>
+  <p class="sl">The Ahrefs analysis identified 8 keywords where both HeatPressNation and MakerFlo rank and we don't. After checking our actual catalog and existing content: 5 of those gaps are either addressed by Priority 2, products we don't carry, or lines we're sunsetting. The 3 remaining gaps are here — all low-difficulty keywords where a well-structured page should rank within weeks.</p>
+
+  <div class="tl" id="tl-p3"></div>
+
+  <div class="pnl" style="margin-top:24px;">
+    <div class="ph" onclick="togglePanel(this)">
+      <div><div class="pt">Full gap analysis — all 8 Ahrefs keywords reconciled</div><div class="ps2">What we're doing and why for each</div></div>
+      <div class="ptog">Show ▾</div>
+    </div>
+    <div class="pb">
+      <table class="kt">
+        <thead><tr><th>Gap keyword</th><th>Volume</th><th>KD</th><th>Action</th><th>Reason</th></tr></thead>
+        <tbody>
+          <tr><td class="kw">sublimation products</td><td>350/mo</td><td>5</td><td class="good">Done in P2</td><td>/sublimitable rewrite covers this query intent</td></tr>
+          <tr><td class="kw">sublimation kits / bundles</td><td>150/mo</td><td>8</td><td class="good">Done in P3</td><td>/suggested-bundles snippet fix targets "sublimation starter kit"</td></tr>
+          <tr><td class="kw">sublimation wood blanks</td><td>150/mo</td><td>0</td><td class="bad">New page needed</td><td>We carry wood products but have no collection page. KD 0.</td></tr>
+          <tr><td class="kw">printers for sublimation</td><td>400/mo</td><td>4</td><td class="good">Done in P3</td><td>/printers-ink snippet fix. Page exists, good content, wrong title.</td></tr>
+          <tr><td class="kw">cheap sublimation printer</td><td>350/mo</td><td>2</td><td class="good">Done in P3</td><td>Same /printers-ink fix captures multiple printer queries</td></tr>
+          <tr><td class="kw">best heat press for sublimation</td><td>200/mo</td><td>1</td><td>Skipping</td><td>Sunsetting heat press line — no reorders planned</td></tr>
+          <tr><td class="kw">luggage tags</td><td>150/mo</td><td>3</td><td>Skipping</td><td>We don't sell luggage tags</td></tr>
+          <tr><td class="kw">epson surecolor f570</td><td>500/mo</td><td>0</td><td>Skipping</td><td>We don't carry Epson — ranking for it produces unconvertible clicks</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- P4 -->
+<div class="ps" id="s-p4">
+<div class="pi">
+  <div class="se">PRIORITY 4 · EDITORIAL CALENDAR</div>
+  <h2 class="sh2">Optimize what exists. Write what's genuinely missing.</h2>
+  <p class="sl">Before assigning any new topics, we checked all 78 existing blog posts against the proposed calendar. Seven of the 10 originally proposed posts already have existing content covering the same topic — publishing a new one would create cannibalization. The calendar is restructured: fix what's broken first, then write what's actually missing.</p>
+
+  <div class="co mint">
+    <div class="cl">Standing rules for every new post — hand to freelancer</div>
+    <p>One primary keyword per post, used in the title, H1, first paragraph, and at least two subheadings. No competitor brand mentions by name. Every post links internally to at least one product or collection page (destinations listed in each brief). Target 1,200–2,000 words. H2 subheadings, short paragraphs, at least one list. SEO team writes the meta description before publishing — not the freelancer.</p>
+  </div>
+
+  <div class="ssl"><span>Consolidate</span><span class="sbg sbg-al">1 task</span></div>
+  <div class="tl" id="tl-p4c"></div>
+
+  <div class="ssl" style="margin-top:24px;"><span>Optimize existing posts</span><span class="sbg sbg-nv">6 tasks — SEO team, no writing</span></div>
+  <div class="tl" id="tl-p4o"></div>
+
+  <div class="ssl" style="margin-top:24px;"><span>Write new posts</span><span class="sbg sbg-or">3 posts — freelancer</span></div>
+  <div class="tl" id="tl-p4w"></div>
+</div>
+</div>
+
+<!-- P5 -->
+<div class="ps" id="s-p5">
+<div class="pi">
+  <div class="se">PRIORITY 5 · BACKLOG</div>
+  <h2 class="sh2">Shopify Markets hreflang bug — diagnosed, deprioritized.</h2>
+  <p class="sl">During the GSC analysis we found a Shopify Markets configuration issue causing French and Spanish blog URLs to appear in search results for global audiences who can't read them. One French blog post URL got 565,000 impressions over six months — with 0.07% coming from France, and 25% from Brazil. The root cause is confirmed. The revenue impact is minimal: the affected traffic was never going to convert because Brazilian, Indian, and US searchers can't read a French-language page. The fix requires IT and has potential commerce side effects. Backlog item until capacity opens up.</p>
+
+  <div class="co warn">
+    <div class="cl">Root cause and fix</div>
+    <p><strong>Problem:</strong> Shopify Markets generates hreflang tags as "fr-US" and "es-US" because the global French and Spanish markets are configured with geographic targeting set to "United States." Google can't interpret these correctly and serves the French/Spanish URLs globally.</p>
+    <p><strong>Fix:</strong> Shopify admin → Settings → Markets → change geographic targeting for global French and Spanish markets from "United States" to "Rest of world." This changes the auto-generated hreflang tags to the correct "fr" and "es" format.</p>
+    <p><strong>Caution:</strong> Markets settings also control currency, payment methods, shipping zones, and pricing. Don't change geographic targeting in isolation — review full market settings with IT before saving. Recovery time: 4–12 weeks after the fix.</p>
+  </div>
+
+  <div class="tl" id="tl-p5"></div>
+</div>
+</div>
+
+<!-- TIMELINE -->
+<div class="ps" id="s-tl">
+<div class="tls">
+  <div class="tli">
+    <div class="se" style="color:var(--orange);">TIMELINE</div>
+    <h2 class="sh2" style="color:var(--off-white);">1–2 weeks to implement. Then monitor.</h2>
+    <p class="sl" style="color:var(--cream);">All deliverables are written and ready to implement. The implementation window is 1–2 weeks for the actual changes. After that, the work shifts to weekly GSC monitoring and iterating on what moved.</p>
+    <div class="tlg">
+      <div class="tph"><div class="tpl now">Today</div><div class="tpt at">Day 1</div><div class="tptt">P1: All 10 snippets live</div><div class="tpd">Paste all 10 proposed titles and meta descriptions into Shopify SEO fields. The "what-is-a-tumbler" post is priority #1 — it's ranking #1 with no meta description. Start individual GSC monitoring for each page after saving.</div></div>
+      <div class="tph"><div class="tpl soon">This week</div><div class="tpt ot">Days 2–4</div><div class="tptt">P2: Collection copy + homepage nav</div><div class="tpd">Add /powdercoated-cups to homepage navigation first (critical for "tumblers" ranking). Deploy below-grid copy for all four main collection pages. Add all internal links per task instructions.</div></div>
+      <div class="tph"><div class="tpl soon">This week</div><div class="tpt ot">Days 4–7</div><div class="tptt">P3: Gap pages + P4: Start editorial</div><div class="tpd">Update /printers-ink and /suggested-bundles snippets. Create /collections/sublimation-wood-blanks with products assigned. Brief freelancer on W1, W2, W3. SEO person starts consolidation and optimize tasks.</div></div>
+      <div class="tph"><div class="tpl soon">Week 2</div><div class="tpt ot">Week 2</div><div class="tptt">Complete remaining tasks</div><div class="tpd">All P1–P4 tasks complete. Deploy /powdercoated-cases copy. First GSC check on P1 snippets (7–14 days for Google to re-crawl). Confirm /powdercoated-cups is starting to appear for "tumblers" in GSC.</div></div>
+      <div class="tph"><div class="tpl mon">Monitoring</div><div class="tpt mt">Weeks 3–6</div><div class="tptt">Weekly GSC review</div><div class="tpd">Pull CTR per page weekly for all 10 P1 pages. Watch /shop-by-the-case for "wholesale tumblers" position change. Watch /sublimation-wood-blanks for first appearance in GSC (KD 0 — should rank fast once indexed). Freelancer posts W2 and W3.</div></div>
+      <div class="tph"><div class="tpl mon">Measuring</div><div class="tpt mt">Week 8+</div><div class="tptt">Full GSC re-pull and second wave</div><div class="tpd">Re-pull all GSC data. Compare CTR and click totals against the baseline established at Week 1. Identify the next 50 pages for snippet rewrites. Adjust editorial calendar. Consider P5 if IT capacity opens.</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="pi">
+  <div class="se">MEASUREMENT</div>
+  <h2 class="sh2">How we'll know it's working.</h2>
+  <div class="sg" style="margin-top:16px;">
+    <div class="sb"><div class="sn or">2.0%</div><div class="slb">Target CTR at 8 weeks (from 0.86%)</div></div>
+    <div class="sb"><div class="sn or">+40%</div><div class="slb">Target click volume increase</div></div>
+    <div class="sb"><div class="sn or">10</div><div class="slb">P1 pages monitored individually</div></div>
+  </div>
+  <div class="co info" style="margin-top:8px;">
+    <div class="cl">Specific things to watch</div>
+    <p><strong>/blogs/.../what-is-a-tumbler:</strong> Was 0.08% CTR ranking #1 for "tumbler cup" (28K impr) with no meta description. Any jump to 1%+ is a major win and confirms the approach works.</p>
+    <p><strong>/collections/hot-new-items:</strong> Worst performer (0.04% at pos 4.3). New snippet targets actual products. Watch for recovery toward 2–3%.</p>
+    <p><strong>/collections/powdercoated-cups:</strong> New DTC positioning. Watch for it to appear in GSC for "tumblers" within 2–4 weeks of the homepage link going live.</p>
+    <p><strong>/collections/sublimation-wood-blanks:</strong> New page, KD 0. Should appear in GSC within 2–4 weeks once the internal link from /sublimitable is in place.</p>
+  </div>
+
+  <div class="div"></div>
+  <div class="se">DELIBERATE NON-GOALS</div>
+  <h2 class="sh2">What we're not doing.</h2>
+  <div class="ngl" style="margin-top:16px;">
+    <p><strong>Building a content hub from scratch.</strong> We have one — 119 posts, 2.4M impressions over 6 months. The work is steering the existing cadence, not starting over.</p>
+    <p><strong>Heat press SEO investment.</strong> Sunsetting the line. Building content for products we're not reordering is effort that can't compound.</p>
+    <p><strong>Epson-specific keywords.</strong> We don't carry Epson. "epson surecolor f570" is 500/mo at KD 0 — genuinely tempting — but ranking for a product we don't sell produces clicks that won't convert.</p>
+    <p><strong>Backlink building campaigns.</strong> Referring domains turned a corner organically in late April. Let that compound. Backlinks aren't the constraint right now.</p>
+    <p><strong>Hard keywords (KD 50+).</strong> Every keyword in this plan is KD 10 or below. The opportunity is in uncontested queries where a good page wins without a campaign.</p>
+  </div>
+</div>
+</div>
+
+<script>
+const OW = ['Unassigned','Me','SEO Person','IT/Dev','Freelancer'];
+let S = {};
+try{S=JSON.parse(localStorage.getItem('tsd-v3')||'{}');}catch(e){}
+
+function sv(){
+  try{localStorage.setItem('tsd-v3',JSON.stringify(S));const p=document.getElementById('sp');p.classList.add('show');setTimeout(()=>p.classList.remove('show'),1400);}catch(e){}
+}
+
+const T = {
+'tl-p1':[
+  {id:'p1-1',ty:'tod',ba:'tb-tod',lb:'To Do',ti:'UPDATE FIRST: /blogs/.../what-is-a-tumbler — "tumbler cup" ranking #1 with ZERO meta description',sx:'"tumbler cup" 28.7K impr at pos 1.07 · "tumbler" 18.2K impr at pos 1.29 · No meta description has ever been set — biggest lift potential in the batch',ow:'Me',dt:`TARGET KEYWORDS:\n• "tumbler cup" — 28,695 impressions at position 1.07\n• "tumbler" — 18,217 impressions at position 1.29\n• "what is a tumbler" — 5,848 impressions at position 5.20\n\nWHY: We're literally ranking #1 for a 28K-impression keyword and getting 0 clicks because there's no meta description. Google is auto-generating a snippet from random page content. At position 1, we should be getting ~28% CTR — that's ~8,000 clicks per 6 months. We're getting 36.\n\nPROPOSED TITLE (52 chars):\nWhat Is a Tumbler? Cups, Materials & Uses Explained\n\nPROPOSED META DESCRIPTION (156 chars):\nA tumbler is an insulated cup designed for hot or cold drinks, made from stainless steel, glass, or plastic. Learn the types, sizes, and best uses for each.\n\nSTEPS:\n1. Shopify admin → Blog posts\n2. Find and click the "What Is a Tumbler?" post\n3. Scroll to bottom → "Search engine listing" → "Edit website SEO"\n4. Page title: paste proposed title above\n5. Meta description field is currently EMPTY — paste proposed meta\n6. Save`},
+  {id:'p1-2',ty:'tod',ba:'tb-tod',lb:'To Do',ti:'/collections/drinkware — "tumblers" 197K impressions, title doesn\'t contain the word',sx:'"stainless steel tumbler" (7.3K impr) · "wholesale tumblers" (5K impr) · Current title: "Bulk & Wholesale Drinkware for Customization"',ow:'Me',dt:`TARGET KEYWORDS:\n• "tumblers" — 197,334 impressions at position 5.98 on this page\n• "stainless steel tumbler" — 7,337 impressions at position 9.8\n• "wholesale tumblers" — 4,986 impressions at position 6.28\n\nWHY: 538,515 total impressions over 6 months at 0.20% CTR. The word "tumblers" never appears in the current title. The meta description is fine but could be stronger.\n\nPROPOSED TITLE (58 chars):\nCustomizable Tumblers & Cups by the Unit | Stainless Depot\n\nPROPOSED META DESCRIPTION (158 chars):\nShop stainless steel tumblers, mugs, and cups individually with no minimums. Sublimation blanks, powder coated, and plain stainless. Free US shipping over $99.\n\nSTEPS:\n1. Shopify admin → Collections → Drinkware\n2. Scroll to "Search engine listing" → "Edit website SEO"\n3. Paste proposed title and meta\n4. NOTE: The current meta description field has 1,800+ chars of FAQ content — DELETE all of it and replace with the 158-char meta above. That FAQ content moves to the page Description field (P2 task).\n5. Save`},
+  {id:'p1-3',ty:'tod',ba:'tb-tod',lb:'To Do',ti:'/collections/shop-by-the-case — "wholesale tumblers," "bulk tumblers," "tumblers in bulk" — HPN ranks #1 for all three',sx:'5K + 4.9K + 4.8K impressions across these three queries — none appear in the current title "Bulk Sublimation Tumblers"',ow:'Me',dt:`TARGET KEYWORDS (competitor gap queries):\n• "wholesale tumblers" — 5,171 impressions at pos 7.84. HeatPressNation ranks #1 here.\n• "bulk tumblers" — 4,948 impressions at pos 8.61\n• "tumblers in bulk" — 4,872 impressions at pos 8.65\n\nWHY: 259,569 total impressions at 0.07% CTR. These three queries are exactly what this page sells, but the current title "Bulk Sublimation Tumblers" only mentions sublimation and doesn't include "wholesale" or "in bulk."\n\nPROPOSED TITLE (55 chars):\nWholesale & Bulk Tumblers by the Case | Stainless Depot\n\nPROPOSED META DESCRIPTION (156 chars):\nBuy tumblers in bulk by the case. Wholesale sublimation blanks, powder coated tumblers, and stainless cups for resellers, shops, and businesses. Free shipping over $99.\n\nSTEPS:\n1. Shopify admin → Collections → "Shop by the Case"\n2. Search engine listing → Edit website SEO\n3. Paste proposed title and meta\n4. Save`},
+  {id:'p1-4',ty:'tod',ba:'tb-tod',lb:'To Do',ti:'/collections/sublimitable — "sublimation tumblers" (14.5K) and "sublimation blanks" (10.3K) — meta is 1,800+ chars (broken)',sx:'252K impressions at 0.56% CTR · Meta is an 1,800-character FAQ that Google truncates or ignores · Title leads with "Bulk" not "Sublimation"',ow:'Me',dt:`TARGET KEYWORDS:\n• "sublimation tumblers" — 14,554 impressions at position 4.56. MakerFlo ranks #3, HPN #4. Close gap.\n• "sublimation blanks" — 10,323 impressions at position 8.7\n• "sublimation tumblers wholesale" — 1,941 impressions at pos 3.66\n\nWHY: The meta description is an 1,800-character FAQ block. Google shows ~155 characters in search results — it truncates the rest to a broken, mid-sentence snippet or ignores the meta entirely and auto-generates something worse.\n\nPROPOSED TITLE (48 chars):\nSublimation Tumblers & Blanks | Bulk & Wholesale\n\nPROPOSED META DESCRIPTION (154 chars):\nShop sublimation tumblers and blanks for tumblers, mugs, apparel, and more. Polymer-coated blanks ready for vibrant transfers. Individual units and bulk cases available.\n\nSTEPS:\n1. Shopify admin → Collections → Sublimitable collection\n2. Search engine listing → Edit website SEO\n3. Paste proposed title\n4. IMPORTANT: Delete the entire 1,800-character FAQ from the meta description field. Replace with the 154-char meta above. The FAQ content moves to the page Description field in P2.\n5. Save`},
+  {id:'p1-5',ty:'tod',ba:'tb-tod',lb:'To Do',ti:'/collections/close-out-sale — meta is only 66 chars, Google filling the rest with random page content',sx:'188K impr at 0.30% CTR · Current meta: "Drinkware Tumblers on sale. Get them before they\'re gone forever!" · Too short — Google can\'t complete the snippet',ow:'Me',dt:`TARGET KEYWORDS:\n• "bulk tumblers" — appearing at position 7.72\n• "stainless steel cups" — appearing at position 11.28\n• "tumblers" — 3,675 impressions at position 9.71\n\nWHY: The meta description is 66 characters. Google has ~155 characters of space and fills the rest by pulling random text from the page — producing an incoherent snippet.\n\nPROPOSED TITLE (52 chars):\nTumbler Closeouts & Clearance Sale | Stainless Depot\n\nPROPOSED META DESCRIPTION (149 chars):\nCloseout deals on bulk tumblers, sublimation blanks, and stainless steel cups. Discounted pricing on remaining stock — gone for good once sold out.\n\nSTEPS:\n1. Shopify admin → Collections → close-out-sale\n2. Search engine listing → Edit website SEO\n3. Paste proposed title and meta\n4. Save`},
+  {id:'p1-6',ty:'tod',ba:'tb-tod',lb:'To Do',ti:'/collections/hot-new-items — WORST CTR in batch: 0.04% at position 4.3. Meta is 1,400+ chars.',sx:'"stainless steel tumbler" (3.6K impr) · "wholesale tumblers" (2.6K impr) · At position 4.3 we should be at 7–8% CTR — we\'re at 0.04%',ow:'Me',dt:`TARGET KEYWORDS:\n• "stainless steel tumbler" — 3,618 impressions at position 10.36\n• "wholesale tumblers" — 2,651 impressions at position 5.10\n• "tumblers in bulk" — 2,569 impressions at position 8.21\n\nWHY: 130,249 impressions at 0.04% CTR. Position 4.3 should yield 7–8% CTR. The meta is 1,400+ characters of FAQ content being truncated to something meaningless. Title "New Sublimation Products" is generic and doesn't name anything specific.\n\nPROPOSED TITLE (47 chars):\nNew Tumblers & Sublimation Blanks | Just Added\n\nPROPOSED META DESCRIPTION (147 chars):\nThe newest tumblers, powder coated cups, and sublimation blanks in stock. Latest drops include 30oz Modern Curve Tumblers and 40oz Big Swig styles.\n\nSTEPS:\n1. Shopify admin → Collections → "Hot New Items"\n2. Search engine listing → Edit website SEO\n3. Paste proposed title\n4. DELETE the 1,400-character FAQ from the meta field — replace with 147-char meta above\n5. Save`},
+  {id:'p1-7',ty:'tod',ba:'tb-tod',lb:'To Do',ti:'/blogs/.../sublimation-heat-press-settings — title is 99 chars (truncated at ~60). No meta description.',sx:'"sublimation heat press settings" (2K impr at pos 5.1) · "sublimation temp and time" (1.1K at pos 3.45) · Every searcher sees a truncated title',ow:'Me',dt:`TARGET KEYWORDS:\n• "sublimation heat press settings" — 2,012 impressions at position 5.13\n• "sublimation temp and time" — 1,114 impressions at position 3.45\n• "sublimation time and temp" — 554 impressions at position 4.16\n\nWHY: The current title is 99 characters — "Sublimation Heat Press Settings For Shirts, Tumblers, Mugs, Stainless Steel Water Bottles, and More." Google cuts titles at ~60 characters. Every searcher sees this title truncated with "..." in the middle.\n\nPROPOSED TITLE (50 chars):\nSublimation Heat Press Settings: Time & Temp Guide\n\nPROPOSED META DESCRIPTION (152 chars):\nThe right sublimation temp and time for shirts, tumblers, mugs, and stainless steel bottles. Heat press settings, pressure, and tips to avoid ghosting.\n\nSTEPS:\n1. Shopify admin → Blog posts → find the heat press settings post\n2. Search engine listing → Edit website SEO\n3. Replace 99-char title with 50-char proposed title\n4. Meta description field is empty — paste proposed meta\n5. Save`},
+  {id:'p1-8',ty:'tod',ba:'tb-tod',lb:'To Do',ti:'/blogs/.../best-sublimation-printer-for-beginners — update year to 2026, trim title, add Sawgrass to meta',sx:'"best sublimation printer" 10.3K impr at pos 5 · Title is 76 chars (borderline truncated) · Year says 2025 · No meta description',ow:'Me',dt:`TARGET KEYWORDS:\n• "best sublimation printer" — 10,292 impressions at position 5.04\n• "sublimation printer" — 5,493 impressions at position 1.75\n• "best sublimation printer for beginners" — 4,018 impressions at position 5.16\n• "best sublimation printer for small business" — 1,863 impressions at position 4.02\n\nWHY: Title is borderline truncated at 76 chars. Year is outdated (2025). Naming Sawgrass in the meta signals we actually carry the products and builds purchase-intent credibility.\n\nPROPOSED TITLE (52 chars):\nBest Sublimation Printer for Beginners (2026 Guide)\n\nPROPOSED META DESCRIPTION (144 chars):\nCompare the best sublimation printers for beginners in 2026. Side-by-side review of Sawgrass and other top models with pros, cons, and pricing.\n\nSTEPS:\n1. Shopify admin → Blog posts → find best sublimation printer post\n2. Search engine listing → Edit website SEO\n3. Update title (trim length, update year)\n4. Paste proposed meta (field is empty)\n5. Save\n\nFYI: This post mentions Epson F170 and F570. Since we don't carry Epson, ask the freelancer to update the post body to focus on Sawgrass — not urgent but worth noting.`},
+  {id:'p1-9',ty:'tod',ba:'tb-tod',lb:'To Do',ti:'/blogs/.../best-stainless-steel-water-bottle-in-2025 — currently ranking #1 for a cleaning query (wrong page)',sx:'"best stainless steel water bottle" 4.1K impr · This post is ranking #1 for "how to clean stainless steel water bottle" (42K impr) — a completely different topic',ow:'Me',dt:`TARGET KEYWORDS:\n• "best stainless steel water bottle" — 4,111 impressions at position 8.24\n• "304 stainless steel water bottle" — 202 impressions at position 1.38\n\nWHY: 91,998 total impressions at 0.07% CTR. This is a buyer's guide post, but 42,411 of its impressions come from a cleaning query — completely different intent. The new title signals "buyer's guide" not "cleaning guide," which improves click quality and helps Google understand the correct intent for this page.\n\nPROPOSED TITLE (54 chars):\nBest Stainless Steel Water Bottle (2026 Buyer's Guide)\n\nPROPOSED META DESCRIPTION (142 chars):\nA side-by-side review of the best stainless steel water bottles for 2026. Compare 304 vs. 18/8 grades, insulation, durability, and value picks.\n\nSTEPS:\n1. Shopify admin → Blog posts → find "best stainless steel water bottle" post\n2. Search engine listing → Edit website SEO\n3. Update title (add "Buyer's Guide" framing, update year to 2026)\n4. Paste proposed meta (field is empty)\n5. Save`},
+  {id:'p1-10',ty:'tod',ba:'tb-tod',lb:'To Do',ti:'/products/official-hogg-20oz-skinny-tumbler — meta is full 1,000-char product description (truncated randomly)',sx:'"20 oz tumbler" 7K impr at pos 9.6 · "20oz tumbler" 3.9K impr · Meta is the product description copy — Google cuts it mid-sentence',ow:'Me',dt:`TARGET KEYWORDS:\n• "20 oz tumbler" — 7,010 impressions at position 9.6\n• "20oz tumbler" — 3,929 impressions at position 9.07\n• "20 oz skinny tumbler" — 1,102 impressions at position 4.55\n\nWHY: 82,498 impressions at 0.46% CTR. Title is fine — small cleanup only. Meta is the full product description (~1,000 chars) auto-pulled into the SEO field. Google truncates it at ~155 chars and the truncation point is random, often mid-sentence.\n\nPROPOSED TITLE (57 chars):\n20oz Skinny Tumbler with Sliding Lid & Straw | Stainless\n\nPROPOSED META DESCRIPTION (152 chars):\nBlank 20oz skinny tumbler with sliding lid and straw. Stainless steel, double-wall vacuum insulated, customizable for epoxy, UV DTF, and laser engraving.\n\nSTEPS:\n1. Shopify admin → Products → "Official HOGG 20oz Skinny Tumbler"\n2. Scroll to "Search engine listing" → "Edit website SEO"\n3. Minor title update (W/ → with)\n4. Replace 1,000-char product description in meta field with 152-char proposed meta\n5. Save`},
+],
+'tl-p2':[
+  {id:'p2-1',ty:'urg',ba:'tb-urg',lb:'Urgent',ti:'Add /collections/powdercoated-cups to homepage navigation',sx:'Without a homepage link, Google will not rank this page for "tumblers" (222K impressions). This is the most important signal for a collection page to rank for head terms.',ow:'Me',dt:`WHY THIS IS URGENT:\nGoogle uses internal links from the homepage as one of the strongest signals for which pages are most important on a site. We're repositioning /collections/powdercoated-cups to target "tumblers" (222K impressions at pos 6.7). Without a homepage link, we're asking Google to rank it for a major head term without giving it the authority signal it needs.\n\nSTEPS:\n1. Shopify admin → Online Store → Navigation\n2. Find the main navigation menu (usually "Main menu" or "Header navigation")\n3. Click "Add menu item"\n4. Name: "Shop Tumblers" or "Finished Tumblers"\n5. Link: /collections/powdercoated-cups\n6. Position under a "Shop" dropdown or as a top-level item\n7. Save menu\n\nIF YOU CAN'T ADD TO TOP NAV: Add a featured collection section to the homepage body. Any homepage link changes the authority signal Google sees.`},
+  {id:'p2-2',ty:'tod',ba:'tb-tod',lb:'To Do',ti:'Deploy below-grid copy for /collections/drinkware',sx:'Repositioned for: individual unit buyers — crafters, makers, one-offs. Targets "stainless steel tumbler," "custom tumblers." Add internal links to /shop-by-the-case, /powdercoated-cups, /sublimitable.',ow:'Me',dt:`WHAT THIS PAGE NOW OWNS: All tumbler types by the unit, no minimums. For anyone buying 1–20 tumblers — crafters testing styles, makers filling one-off orders, small resellers.\n\nSTEPS:\n1. Shopify admin → Collections → Drinkware\n2. In the "Description" field (this is BELOW the product grid — separate from the SEO meta), paste the intro and FAQ copy from the Priority 2 deliverable\n3. Save\n\nINTERNAL LINKS TO ADD IN THE DESCRIPTION COPY:\n• "by the case" or "wholesale by the case" → link to /collections/shop-by-the-case\n  WHY: Routes high-volume buyers to the right page. Passes link equity from a 538K-impression page.\n• "sublimation blanks" → link to /collections/sublimitable\n  WHY: Cross-references the sublimation-specific collection for makers.\n• "powder coated" or "finished tumblers" → link to /collections/powdercoated-cups\n  WHY: This link is critical — /powdercoated-cups needs link authority from a high-impression page to rank for "tumblers."\n• "new arrivals" → link to /collections/hot-new-items`},
+  {id:'p2-3',ty:'tod',ba:'tb-tod',lb:'To Do',ti:'Deploy below-grid copy for /collections/shop-by-the-case',sx:'Repositioned for: bulk buyers, resellers, B2B. Targets: "wholesale tumblers," "bulk tumblers," "tumblers in bulk" — the competitor gap keywords.',ow:'Me',dt:`WHAT THIS PAGE NOW OWNS: All tumbler types in case quantities. For resellers stocking a shop, corporate gift programs, event planners, anyone needing 24+ units.\n\nCOMPETITOR CONTEXT: "Wholesale tumblers" (5K impr), "bulk tumblers" (4.9K impr), "tumblers in bulk" (4.8K impr) are where HPN ranks #1. These are high-commercial-intent queries from bulk buyers. We need this page optimized for exactly these terms.\n\nSTEPS:\n1. Shopify admin → Collections → "Shop by the Case"\n2. In the "Description" field, paste below-grid copy from Priority 2 deliverable\n3. Save\n\nINTERNAL LINKS TO ADD:\n• "individual units" or "by the unit" → link to /collections/drinkware\n  WHY: Routes people who want less than a case to the right page. Keeps both pages complementary.\n• "sublimatable cases" → link to /collections/sublimatable-cases\n  WHY: Cross-references the sublimation-specific case collection for makers who want cases of sublimation blanks specifically.`},
+  {id:'p2-4',ty:'tod',ba:'tb-tod',lb:'To Do',ti:'Deploy below-grid copy for /collections/sublimitable — replace 1,800-char meta with 154-char version',sx:'Sublimation department hub. Targets: "sublimation tumblers," "sublimation blanks," "sublimation cups." Links to subcollections (by cup, by case).',ow:'Me',dt:`WHAT THIS PAGE NOW OWNS: Everything sublimatable — all product types, all quantity formats. The sublimation department hub, linking down to more specific subcollections.\n\nSTEPS:\n1. Shopify admin → Collections → Sublimitable\n2. In the "Description" field, paste below-grid copy from Priority 2 deliverable\n3. Confirm the meta description field was already replaced in P1 (1,800 chars → 154 chars)\n4. Save\n\nINTERNAL LINKS TO ADD IN THE DESCRIPTION COPY:\n• "sublimatable by the cup" or "individual sublimation blanks" → link to /collections/sublimatable-by-the-cup-1\n  WHY: Routes unit buyers to the unit-specific page. Passes authority down.\n• "sublimatable cases" → link to /collections/sublimatable-cases\n  WHY: Routes case buyers to the case-specific page.\n• "Best Sublimation Printer for Beginners" → link to the blog post\n  WHY: Creates a topical authority signal connecting the sublimation department to the printer content.`},
+  {id:'p2-5',ty:'tod',ba:'tb-tod',lb:'To Do',ti:'Deploy below-grid copy for /collections/powdercoated-cups — set title/meta for "tumblers" targeting',sx:'DTC finished tumblers + laser engraving/DTF one-offs. This page targets the "tumblers" head term (222K impressions) for non-sublimation buyers.',ow:'Me',dt:`WHAT THIS PAGE NOW OWNS: Powder coated tumblers by the unit. For DTC consumers who want a finished tumbler to buy and use, PLUS crafters doing laser engraving or DTF transfers who need small quantities.\n\nWHY "TUMBLERS" IS THE RIGHT TARGET: The "tumblers" query is mixed-intent — some people want a finished tumbler, some want a blank to customize. A powder coated page in bold colors is the right answer for the DTC segment. We currently rank #6.7 at 0.05% CTR for "tumblers" on /collections/drinkware (a blanks page). A powder coated page with the right content is a much better match for that DTC intent.\n\nSTEPS:\n1. Shopify admin → Collections → "Powdercoated Cups"\n2. Set title tag: "Powder Coated Tumblers | Stainless Steel Cups" (50 chars)\n3. Set meta description: "Shop powder coated stainless steel tumblers in bold colors and patterns. Double-wall vacuum insulated, ready to drink from or customize. Free US shipping over $99." (158 chars)\n4. In the "Description" field, paste below-grid copy from Priority 2 deliverable\n5. Save\n\nINTERNAL LINKS TO ADD:\n• "sublimation blank tumblers" → link to /collections/sublimitable\n  WHY: Routes people wanting sublimation-specific blanks to the right page\n• "wholesale by the case" → link to /collections/powdercoated-cases\n  WHY: Routes bulk buyers to the case-quantity page\n• "plain stainless tumblers" → link to /collections/drinkware`},
+  {id:'p2-6',ty:'tod',ba:'tb-tod',lb:'To Do',ti:'Create and deploy copy for /collections/powdercoated-cases',sx:'New page for bulk powder coated buyers — laser engraving and DTF businesses buying in volume. Not yet in GSC.',ow:'Me',dt:`WHAT THIS PAGE OWNS: Powder coated tumblers by the case for businesses buying in bulk to decorate with laser engraving or DTF transfers.\n\nKEYWORDS:\n• "powder coated tumblers wholesale"\n• "bulk powder coated tumblers"\n• "powder coated cups bulk"\n\nSTEPS:\n1. Confirm the collection exists and has powder coated case products assigned\n2. Shopify admin → Collections → click the powdercoated-cases collection\n3. Set title tag: "Bulk Powder Coated Tumblers by the Case | Stainless Depot" (57 chars)\n4. Set meta description: "Buy powder coated tumblers in bulk by the case. Stainless steel cups for laser engraving, DTF transfers, and wholesale resale. Free US shipping over $99." (152 chars)\n5. In the "Description" field, add intro copy: explain case quantities, who this is for (laser shops, DTF businesses, wholesale resellers), multi-color assortments, per-unit pricing shown on each product\n6. Add a short FAQ: case quantities, customization compatibility (laser/DTF on powder coat works great), mixing colors\n7. Save\n\nINTERNAL LINKS:\n• From /collections/powdercoated-cups description → "wholesale by the case" already links here (added in P2-5)\n• From /collections/shop-by-the-case description → mention powder coated cases as an option`},
+],
+'tl-p3':[
+  {id:'p3-1',ty:'tod',ba:'tb-tod',lb:'To Do',ti:'Update snippet: /collections/printers-ink — competitor gap keyword "printers for sublimation" (400/mo)',sx:'"printers for sublimation" (400/mo) · "Sawgrass printer" · 7,335 impr at 0.11% CTR currently · Existing below-grid copy is good — DO NOT change it',ow:'Me',dt:`COMPETITOR GAP KEYWORDS:\n• "printers for sublimation" — 400/mo, KD 4. Both HPN and MakerFlo rank for this. We don't appear because our title doesn't match.\n• "sublimation printer for tumblers" — 200/mo, KD 3\n• "Sawgrass SG500" / "Sawgrass SG1000" — brand queries from buyers ready to purchase\n• "cheap sublimation printer" — 350/mo, KD 2\n\nWHY THESE MATTER: Printer queries have very high commercial intent — someone searching "Sawgrass SG500" is likely about to buy. We carry these products and have a solid page. The only issue is the title and meta don't match the queries people are using to find printers.\n\nPROPOSED TITLE (54 chars):\nSawgrass Sublimation Printers & Ink | SG500 & SG1000\n\nPROPOSED META DESCRIPTION (155 chars):\nShop Sawgrass sublimation printers for tumblers, mugs, and apparel. SG500 for smaller projects, SG1000 for larger prints. Ink, bypass trays, and bundles included.\n\nSTEPS:\n1. Shopify admin → Collections → "Printers & Ink"\n2. Search engine listing → Edit website SEO\n3. Replace title and meta description ONLY\n4. DO NOT touch the Description field — the existing below-grid copy with Sawgrass FAQs is good\n5. Save\n\nADDITIONAL: Confirm the "Best Sublimation Printer for Beginners" blog post (updated in P1) links back to this collection page with anchor text "Sawgrass sublimation printers." This reciprocal link strengthens both pages.`},
+  {id:'p3-2',ty:'tod',ba:'tb-tod',lb:'To Do',ti:'Update snippet + copy: /collections/suggested-bundles — meta is 330+ chars, truncated mid-sentence (36,985 impressions at 0.02% CTR)',sx:'"sublimation starter kit" · "sublimation bundle" · "tumbler bundle" · 36,985 impr · Meta ends "...to help you get start" — literally unfinished sentence',ow:'Me',dt:`COMPETITOR GAP KEYWORDS:\n• "sublimation kit" — 150/mo, KD 8. Both HPN and MakerFlo rank for this on bundle/kit pages.\n• "sublimation starter kit" — high purchase intent from someone ready for their first purchase\n• "sublimation bundle" — broad bundled-purchase query\n\nWHY 36,985 IMPRESSIONS AT 0.02% CTR:\nThe meta description is 330+ characters long and ends mid-sentence: "...to help you get start" — literally cut off in every search result. No one clicks an incomplete sentence. This is a pure snippet fix.\n\nPROPOSED TITLE: Keep as-is — "Sublimation Bundles & Business Starter Kits" is good (45 chars)\n\nPROPOSED META DESCRIPTION (153 chars):\nSublimation starter kits, tumbler bundles, heat press packages, and epoxy kits. Everything bundled so you spend less and start faster. Free shipping over $99.\n\nSTEPS:\n1. Shopify admin → Collections → "Suggested Bundles" (or however it's named internally)\n2. Search engine listing → Edit website SEO\n3. Keep the title as-is\n4. Replace the 330-char meta with the 153-char version above\n5. In the "Description" field, paste the below-grid copy from Priority 3 deliverable (adds context about what types of bundles are in the collection)\n6. Save`},
+  {id:'p3-3',ty:'wri',ba:'tb-wri',lb:'New Page',ti:'Create /collections/sublimation-wood-blanks — KD 0, both competitors rank, we have the products',sx:'"sublimation wood blanks" 150/mo · KD 0 — zero competition · Both HPN and MakerFlo rank on collection pages · We carry wood sublimation products with no collection page',ow:'Me',dt:`WHY THIS MATTERS:\n"Sublimation wood blanks" is 150 searches/month at KD 0. Zero competition means a dedicated page from us should rank on page 1 within 2–4 weeks of being indexed. We carry the products (Sublimatable Wood Photo Panel + other wood items). We just don't have a collection page for them. This is a pure organization and labeling task.\n\nSTEPS:\n1. Shopify admin → Collections → "Create collection"\n2. Title: "Sublimation Wood Blanks"\n3. Set collection type to "Manual" and assign all wood sublimation products to it\n4. Set URL handle to: sublimation-wood-blanks (under the URL section)\n5. Set title tag: "Sublimation Wood Blanks | Wood Panels & Signs" (50 chars)\n6. Set meta description: "Shop sublimation wood blanks including photo panels, signs, and wood boards. Polymer-coated for vibrant transfers. Ready to press. Free US shipping over $99." (152 chars)\n7. In the "Description" field, paste below-grid copy from Priority 3 deliverable (covers what makes wood sublimatable, press settings, FAQs)\n8. Publish the collection\n\nCRITICAL STEP — without this Google won't find the page:\nGo to Shopify admin → Collections → Sublimitable collection → edit the Description field → find the "Shop sublimation by category" section → add a line: "Wood blanks and panels" with a link to /collections/sublimation-wood-blanks using the anchor text "wood sublimation blanks"\n\nWHY THIS LINK IS THE MOST IMPORTANT STEP:\n/sublimitable has 200K impressions — a link from it tells Google the new wood blanks page is important and related to sublimation. Without this internal link, the new page may take months to be discovered and indexed. With it, it should appear in GSC within 2–4 weeks.`},
+],
+'tl-p4c':[
+  {id:'p4c1',ty:'con',ba:'tb-con',lb:'Consolidate',ti:'Consolidate the "how to sublimate" cluster — 4 posts, 161K combined impressions, all competing against each other',sx:'5-steps-to-sublimate · how-to-do-sublimation-printing · what-is-sublimation-printing · Splitting ranking signal so none ranks well',ow:'SEO Person',dt:`THE PROBLEM:\nFour posts target overlapping "how to sublimate" intent. Google picks one and suppresses the others. None ranks as well as one consolidated post would.\n\nFOUR COMPETING POSTS:\n• how-to-do-sublimation-printing-a-step-by-step-beginners-guide — 44K impr, 135 clicks, pos 8.47\n• 5-steps-to-sublimate-like-a-pro — 54K impr, 89 clicks, pos 6.79\n• what-is-sublimation-printing-understanding-the-process-and-benefits — 62K impr, 64 clicks, pos 6.85\n• how-to-sublimate-a-20-oz-tumbler-in-a-tumbler-press — 407 impr (KEEP — different specific intent)\n\nSTEPS:\n1. Pick "how-to-do-sublimation-printing-a-step-by-step-beginners-guide" as the canonical post\n2. Update its title: "How to Do Sublimation Printing: Step-by-Step Beginner's Guide" — confirm "how to sublimate" appears in H1 and first paragraph\n3. Review the other two posts and absorb any unique content into the canonical post before redirecting\n4. Set up 301 redirects: 5-steps-to-sublimate → canonical URL, what-is-sublimation-printing → canonical URL\n5. Update any internal links across the site pointing to the old URLs\n6. Leave how-to-sublimate-a-20-oz-tumbler alone — different specific intent, different audience`},
+],
+'tl-p4o':[
+  {id:'p4o1',ty:'opt',ba:'tb-opt',lb:'Optimize',ti:'Optimize "what-are-sublimation-blanks" — "sublimation blanks" has 11,431 impressions at pos 12.8 with 1.99% CTR',sx:'We rank pos 3.46 overall but for the "sublimation blanks" head term specifically we\'re at pos 12.8 — just off page 1 on an 11K impression keyword',ow:'SEO Person',dt:`TARGET KEYWORD: "sublimation blanks" — 11,431 impressions at position 12.8, CTR 1.99%. The CTR tells us when people do click, they're the right audience. One page move onto page 1 could add thousands of qualified clicks per month.\n\nACTIONS:\n1. Update title: "What Are Sublimation Blanks? Types, Materials & Uses" — front-loads the keyword\n2. Update H1 to match\n3. Write meta: "Everything you need to know about sublimation blanks — polymer coating, types (tumblers, mugs, apparel, wood, glass), and how to choose the right one." (~150 chars)\n4. Confirm "sublimation blanks" appears in the first paragraph and at least two H2 subheadings\n5. Add internal links to /collections/sublimitable and /collections/sublimatable-by-the-cup-1`},
+  {id:'p4o2',ty:'opt',ba:'tb-opt',lb:'Optimize',ti:'Optimize "what-is-sublimation-paper" — 39,040 impressions at pos 5.37, 0.18% CTR (should be 7–8%)',sx:'On page 1, ranking well — snippet is the only problem. Title is question-formatted and loses character budget.',ow:'SEO Person',dt:`TARGET KEYWORD: "sublimation paper" — 300/mo, KD 4. Position 5.37 on page 1 but converting at 0.18%. ~2,700 missing clicks over 6 months on this one page alone.\n\nACTIONS:\n1. Update title: "Sublimation Paper: What It Is, How It Works, and How to Choose"\n2. Update H1 to match\n3. Write meta targeting sublimation paper use cases: "Choose the right sublimation paper for tumblers, shirts, and flat items. What to look for, how to store it, and common mistakes to avoid." (~135 chars)\n4. Add internal link to /collections/printers-ink with anchor "Sawgrass sublimation printer and ink"`},
+  {id:'p4o3',ty:'opt',ba:'tb-opt',lb:'Optimize',ti:'Optimize "the-most-common-sublimation-mistakes" for "sublimation tips" — framing mismatch between content and query',sx:'9,193 impr at pos 8.29, 0.61% CTR. Good content — someone searching "sublimation tips" may not click a post titled around "mistakes."',ow:'SEO Person',dt:`TARGET KEYWORD: "sublimation tips" — 200/mo, KD 5. Post covers this territory but the "mistakes" framing may deter clicks from "tips" searchers.\n\nACTIONS:\n1. Update title: "Sublimation Tips: Common Mistakes and How to Fix Them" — captures both "tips" and "mistakes" intent\n2. Update H1 to match\n3. Write meta: "The most common sublimation mistakes and exactly how to fix them. Tips on heat press settings, coating quality, paper placement, and color accuracy." (~150 chars)\n4. Add internal link to /collections/sublimitable if not present`},
+  {id:'p4o4',ty:'opt',ba:'tb-opt',lb:'Optimize',ti:'Optimize "what-material-can-you-sublimate-on" — BIGGEST P4 opportunity: 73,070 impressions at pos 4.1, 0.66% CTR',sx:'Should be 5,000+ clicks per 6 months — getting 485. Title phrasing doesn\'t match how people search. "What can you sublimate on?" not "What material can you sublimate on?"',ow:'SEO Person',dt:`TARGET KEYWORD: "what can you sublimate" — 180/mo, KD 2. We rank at position 4.1 — should be 7–8% CTR. That's ~5,000 missing clicks every 6 months.\n\nACTIONS:\n1. Update title: "What Can You Sublimate On? Every Surface That Works (and a Few That Don't)"\n2. Update H1 to match\n3. Write meta listing surface types: "Sublimation works on polymer-coated stainless steel, ceramic, polyester fabric, glass, wood, and acrylic — but not on cotton or uncoated metal. Full surface guide." (~158 chars)\n4. Add internal links:\n   • /collections/sublimitable with "sublimation blanks" in the drinkware section\n   • /collections/sublimation-wood-blanks (new P3 page) with "sublimation wood blanks" in the wood section\n   • /collections/sublimatable-by-the-cup-1 for individual unit purchase calls to action`},
+  {id:'p4o5',ty:'opt',ba:'tb-opt',lb:'Optimize',ti:'Optimize "sublimation-oven-vs-heat-press" for "sublimation oven" — 21,213 impressions at pos 6.04',sx:'Good CTR (0.79%) but "sublimation oven" is buried as the second term. Small reorder = meaningful query match improvement.',ow:'SEO Person',dt:`TARGET KEYWORD: "sublimation oven" — 120/mo, KD 2. We rank at pos 6.04 — small adjustment should help.\n\nACTIONS:\n1. Update title: "Sublimation Oven vs. Heat Press: Which Is Better for Tumblers?" — ensure "sublimation oven" leads\n2. Update meta: "Can you use a sublimation oven instead of a heat press? We compare both methods for tumblers — cost, results, and which most crafters end up choosing." (~152 chars)\n3. Confirm internal link to /collections/sublimitable exists`},
+  {id:'p4o6',ty:'opt',ba:'tb-opt',lb:'Optimize',ti:'Optimize "what-is-epoxy-pros-and-cons" to capture "epoxy vs sublimation" — 79,169 impressions at pos 5.03, 0.38% CTR',sx:'79K impressions at 0.38% CTR — one of the biggest wasted-impression posts in the blog. Add comparison section, reframe title.',ow:'SEO Person',dt:`TARGET KEYWORD: "epoxy vs sublimation" — 120/mo, KD 1. We don't rank because the post never actually compares epoxy to sublimation.\n\nACTIONS:\n1. Update title: "Epoxy vs. Sublimation: Pros, Cons, and Which Is Right for Your Tumblers"\n2. Update H1 to match\n3. Write meta: "Epoxy and sublimation both work on tumblers but for very different results. Compare startup cost, learning curve, durability, and the crafters who use each." (~155 chars)\n4. Add a dedicated "Epoxy vs. Sublimation" H2 section to the post body (200–300 words): startup cost, learning curve, durability, design flexibility, the "do both" option\n5. Add internal link to /collections/sublimitable with "sublimation blanks" in the comparison section`},
+],
+'tl-p4w':[
+  {id:'p4w1',ty:'wri',ba:'tb-wri',lb:'Write New',ti:'NEW POST: Sublimation Pens — What They Are, How They Work, Whether You Need One',sx:'"sublimation pens" — 2,086 impressions already at pos 11.5 with 1.01% CTR · No existing post · Safe to write',ow:'Freelancer',dt:`TARGET KEYWORD: "sublimation pens" — 2,086 impressions at position 11.5. We're ranking just off page 1 without a dedicated post. One focused post should push this onto page 1 quickly.\n\nWHY IT WON'T CANNIBALIZE: All 78 existing posts checked — none covers sublimation pens.\n\nBRIEF:\nAngle: Honest assessment — what sublimation pens are good for and what they're not.\nWord count: 1,200–1,500 words\n\nOutline:\n• What sublimation pens actually are (sublimation ink in pen form, not a printer replacement)\n• What surfaces they work on (must be polymer-coated or polyester — same as printer-based sublimation)\n• Good use cases: touch-ups on pressed blanks, small lettering, repairing minor errors, adding details\n• What they're not good for: full-coverage designs, production volume\n• Do I need one if I have a sublimation printer? (Usually no — but useful for repairs)\n\nINTERNAL LINKS:\n• If we sell sublimation pens: link to the product page\n• If not: link to /collections/printers-ink with "Sawgrass sublimation printer" as the full-design alternative\n• Secondary: /collections/sublimitable with "sublimation blanks"`},
+  {id:'p4w2',ty:'wri',ba:'tb-wri',lb:'Write New',ti:'NEW POST: Powder Coated Tumblers — What They Are and How They Differ from Sublimation Blanks',sx:'"powder coated tumbler" — 1,428 impr at pos 12.1 · No existing post · Directly supports P2 /powdercoated-cups repositioning',ow:'Freelancer',dt:`TARGET KEYWORD: "powder coated tumbler" — 1,428 impressions at position 12.1. This post directly supports the P2 repositioning of /collections/powdercoated-cups. A blog post linking to that collection creates an internal authority signal that helps Google rank it for "tumblers."\n\nWHY IT WON'T CANNIBALIZE: All 78 existing posts checked — none covers powder coated tumblers.\n\nBRIEF:\nAngle: Educational but commercial — explain the product, answer buyer questions, link to shop.\nWord count: 1,200–1,500 words\n\nOutline:\n• What powder coating is and why it's used on tumblers (durability, color, grip texture)\n• How powder coated tumblers differ from sublimation blanks (finished product vs. blank canvas)\n• Can you sublimate over powder coat? (Sometimes, with caveats — be honest)\n• Can you laser engrave or DTF over powder coat? (Yes — mention this explicitly, it's part of our audience)\n• Durability vs. raw stainless vs. paint\n• Care: hand wash only, dishwashers damage powder coat\n• Who buys them: DTC buyers, gift shops, events, laser shops, DTF shops\n\nINTERNAL LINKS:\n• PRIMARY: /collections/powdercoated-cups with "powder coated tumblers" — most important link in this post\n• Secondary: /collections/sublimitable with "sublimation blanks" in the comparison section`},
+  {id:'p4w3',ty:'wri',ba:'tb-wri',lb:'Write New',ti:'NEW POST: What Is a Mug Press? How It Works and Whether You Need One',sx:'"mug press" — 2,670 impr at pos 11.2 · No specific mug press post exists · Check heat press guide first to confirm',ow:'Freelancer',dt:`TARGET KEYWORD: "mug press" — 2,670 impressions at position 11.2. Very close to page 1 without a dedicated post.\n\nFREELANCER NOTE: Read "the-ultimate-guide-on-how-to-use-a-heat-press-machine-effectively" before starting. If it already has a substantial mug press section (500+ words), this becomes an optimization of that post rather than a new write.\n\nBRIEF:\nAngle: Buyer's guide and explainer.\nWord count: 1,200–1,500 words\n\nOutline:\n• What a mug press is vs. a flat press vs. a tumbler press (they're different tools)\n• What you can press with a mug press: mugs, some cylindrical items\n• What you cannot: flat items, tumblers (tumblers need a tumbler wrap press specifically)\n• Key specs to compare when buying: heating element coverage, temp range, pressure control\n• Do I need one if I have a tumbler press? Usually no — explain the overlap and when adding a mug press makes sense\n• Compatible sublimation mugs from our catalog\n\nINTERNAL LINKS:\n• Primary: sublimatable mugs in /collections/sublimitable with "sublimatable mugs"\n• Secondary: heat press settings post with "mug sublimation temperature and time"`},
+],
+'tl-p5':[
+  {id:'p5-1',ty:'bkl',ba:'tb-bkl',lb:'Backlog',ti:'Fix Shopify Markets hreflang misconfiguration when IT has capacity',sx:'Diagnosed: fr-US and es-US hreflang tags causing French/Spanish URLs to serve globally. Limited revenue impact. Requires IT — has commerce side effects.',ow:'IT/Dev',dt:`ROOT CAUSE:\nShopify Markets is configured with global French and Spanish markets targeting "United States" as their geographic region. This generates hreflang tags as "fr-US" and "es-US." Google falls back to serving these URLs globally.\n\nPROOF:\n/fr/blogs/news/how-to-clean-stainless-steel-water-bottle:\n• 565,720 impressions over 6 months\n• 3 clicks total\n• Brazil 25%, US 13%, India 7%, France 0.07%\n\nTHE FIX:\n1. Shopify admin → Settings → Markets\n2. Find the global French market (creates /fr/ URLs) — change geographic targeting from "United States" to "Rest of world"\n3. Repeat for the global Spanish market (creates /es/ URLs)\n4. Save — Shopify regenerates hreflang tags within minutes\n5. Verify: view source on a /fr/ page — confirm hreflang now reads hreflang="fr" not hreflang="fr-US"\n6. Submit affected URLs for re-crawl in GSC\n\nBEFORE CHANGING:\nMarkets settings also affect currency, payment methods, shipping zones, and pricing. Review full market settings with IT before saving — don't change geographic targeting in isolation.\n\nRECOVERY: 4–12 weeks for Google to re-evaluate. No immediate change expected.\n\nWHY DEPRIORITIZED:\n• Revenue impact: minimal — affected traffic was non-English speakers who couldn't read the French page\n• Risk: commerce side effects require IT review\n• P1–P4 will have larger measurable impact first`},
+]
+};
+
+function renderAll(){
+  Object.keys(T).forEach(k=>renderList(k,T[k]));
+  updateProg();
+}
+
+function renderList(cid,tasks){
+  const el=document.getElementById(cid);
+  if(!el)return;
+  el.innerHTML='';
+  tasks.forEach(t=>{
+    const s=S[t.id]||{};
+    const done=s.done||false;
+    const owner=s.owner||t.ow||'Unassigned';
+    const notes=s.notes||'';
+    const d=document.createElement('div');
+    d.className='tk '+(done?'dn':t.ty);
+    d.innerHTML=`<div class="tt"><div class="tc ${done?'ck':''}" onclick="tDone(event,'${t.id}')"></div><div class="tm" onclick="tDrw('dr-${t.id}')"><div class="ttl"><span class="ttx${done?' st':''}">${t.ti}</span><span class="tb ${t.ba}">${t.lb}</span></div><div class="tsx">${t.sx}</div></div></div><div class="td" id="dr-${t.id}"><div class="tdi"><div class="dl">Details &amp; step-by-step</div><div class="stb"><pre>${t.dt}</pre></div><div class="dl" style="margin-top:12px">Owner</div><select class="os" onchange="tOwn('${t.id}',this.value)">${OW.map(o=>`<option ${o===owner?'selected':''}>${o}</option>`).join('')}</select><div class="dl">Notes</div><textarea class="nf" placeholder="Notes, links, status..." onchange="tNot('${t.id}',this.value)">${notes}</textarea></div></div>`;
+    el.appendChild(d);
+  });
+}
+
+function tDone(e,id){
+  e.stopPropagation();
+  if(!S[id])S[id]={};
+  S[id].done=!S[id].done;
+  sv();renderAll();
+}
+function tDrw(id){const el=document.getElementById(id);if(el)el.classList.toggle('open');}
+function tOwn(id,v){if(!S[id])S[id]={};S[id].owner=v;sv();}
+function tNot(id,v){if(!S[id])S[id]={};S[id].notes=v;sv();}
+
+function togglePanel(hdr){
+  const b=hdr.nextElementSibling;
+  const t=hdr.querySelector('.ptog');
+  const o=b.classList.toggle('open');
+  t.textContent=o?'Hide ▴':'Show ▾';
+}
+
+function updateProg(){
+  const all=Object.values(T).flat();
+  const tot=all.length;
+  const dn=all.filter(t=>(S[t.id]||{}).done).length;
+  const pct=tot?Math.round(dn/tot*100):0;
+  const pt=document.getElementById('pt');
+  const pf=document.getElementById('pf');
+  if(pt)pt.textContent=dn+' / '+tot;
+  if(pf)pf.style.width=pct+'%';
+}
+
+function go(id){
+  document.querySelectorAll('.ps').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.nav-link').forEach(l=>l.classList.remove('active'));
+  const s=document.getElementById('s-'+id);
+  if(s)s.classList.add('active');
+  document.querySelectorAll('.nav-link').forEach(l=>{
+    if((l.getAttribute('onclick')||'').includes("'"+id+"'"))l.classList.add('active');
+  });
+  window.scrollTo(0,0);
+}
+
+document.addEventListener('DOMContentLoaded',renderAll);
+</script>
+</body>
+</html>
